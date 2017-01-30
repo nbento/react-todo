@@ -1,0 +1,9 @@
+N:\E\www\React\UdemyReact\Exercicios\ReactBoilerplate3
+cd N:/E/www/React/UdemyReact/Exercicios/ReactBoilerplate3/
+
+Na Lec 84, este Boilerplate foi criado a partir da cópia do
+Exercício ReactTimer.
+
+Os node_modules não foram copiados, porque demoram muito tempo a copiar;
+
+

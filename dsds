@@ -1,0 +1,207 @@
+[33mcommit baf864e2ff89e77fc03698dfb0ce8def78701e2e[m
+Author: nbento <ratinhodaprogramacao@gmail.com>
+Date:   Sat Jan 21 12:27:25 2017 +0000
+
+    Lec75 Add countdown functionality
+
+[1mdiff --git a/app/components/Countdown.jsx b/app/components/Countdown.jsx[m
+[1mindex 98675ab..96fad90 100644[m
+[1m--- a/app/components/Countdown.jsx[m
+[1m+++ b/app/components/Countdown.jsx[m
+[36m@@ -1,5 +1,6 @@[m
+ var React = require('React');[m
+ var Clock = require('Clock');[m
+[32m+[m[32mvar CountdownForm = require('CountdownForm');[m
+ /*[m
+ var Countdown = () => {[m
+ 		return (<div>[m
+[36m@@ -9,11 +10,60 @@[m [mvar Countdown = () => {[m
+ 	}[m
+ */[m
+ var Countdown = React.createClass({[m
+[32m+[m	[32m//............[m
+[32m+[m	[32mgetInitialState: function ()[m[41m [m
+[32m+[m	[32m{[m
+[32m+[m		[32mreturn ({	count: 0,[m[41m [m
+[32m+[m					[32mcountdownStatus: 'stopped'  //'stopped', 'started'[m
+[32m+[m				[32m});[m
+[32m+[m	[32m},[m
+[32m+[m	[32m//............check changes in props or state[m
+[32m+[m	[32mcomponentDidUpdate: function (prevProps, prevState)[m
+[32m+[m	[32m{[m
+[32m+[m		[32m//console.log("componentDidUpdate !!!");[m
+[32m+[m		[32mif(this.state.countdownStatus !== prevState.countdownStatus)[m
+[32m+[m		[32m{[m
+[32m+[m			[32mswitch (this.state.countdownStatus)[m
+[32m+[m			[32m{[m
+[32m+[m				[32mcase 'started':[m
+[32m+[m					[32mthis.startTimer();[m
+[32m+[m					[32mbreak;[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m[41m	[m
+[32m+[m	[32m},[m
+[32m+[m	[32m//............[m
+[32m+[m	[32mstartTimer: function(seconds)[m
+[32m+[m	[32m{[m
+[32m+[m		[32m//console.log("startTimer!!!");[m
+[32m+[m		[32m//...........[m
+[32m+[m		[32mthis.timer = setInterval( () => {[m
+[32m+[m						[32mvar newCount = this.state.count - 1;[m
+[32m+[m						[32mthis.setState({	count: newCount >= 0 ? newCount: 0 });[m[41m						[m
+[32m+[m			[32m}, 1000[m
+[32m+[m		[32m);[m
+[32m+[m	[32m},[m
+[32m+[m	[32m//............Handle changes from CountdownForm[m
+[32m+[m	[32mhandleSetCountdown: function(seconds)[m
+[32m+[m	[32m{[m
+[32m+[m		[32mthis.setState({	count: seconds,[m
+[32m+[m						[32mcountdownStatus: 'started'[m
+[32m+[m		[32m});[m
+[32m+[m[41m		[m
+[32m+[m		[32m//........NR Testes, para saber como funciona sem o componentDidUpdate[m
+[32m+[m		[32m//........ desta forma parece mais vantajoso, porque o componentDidUpdate,[m
+[32m+[m		[32m//........ é activado sempre que o state muda, e aqui, a alteração apenas[m
+[32m+[m		[32m//........ acontece quando o utilizador insere um novo tempo[m
+[32m+[m			[32m//this.startTimer();[m
+[32m+[m	[32m},[m
+[32m+[m	[32m//............[m[41m	[m
+ 	render: function()[m
+ 	{[m
+[32m+[m		[32mvar {count} = this.state;[m
+[32m+[m
+ 		return (<div>[m
+[31m-					<h1>Countdown com Clock Component!!!</h1>[m
+[31m-					<Clock totalSeconds={129} />[m
+[32m+[m					[32m<h1>Countdown!!!</h1>[m
+[32m+[m					[32m<Clock totalSeconds={count} />[m
+[32m+[m					[32m<CountdownForm onSetCountdown={this.handleSetCountdown}/>[m
+ 			</div>);[m
+ 	}[m
+ });[m
+[1mdiff --git a/app/components/CountdownForm.jsx b/app/components/CountdownForm.jsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..05409e4[m
+[1m--- /dev/null[m
+[1m+++ b/app/components/CountdownForm.jsx[m
+[36m@@ -0,0 +1,32 @@[m
+[32m+[m[32mvar React = require('react');[m
+[32m+[m
+[32m+[m[32mvar CountdownForm = React.createClass({[m
+[32m+[m
+[32m+[m	[32m//..........[m
+[32m+[m	[32monSubmit: function(e)[m
+[32m+[m	[32m{[m
+[32m+[m		[32me.preventDefault();[m
+[32m+[m		[32mvar strSeconds = this.refs.seconds.value;[m
+[32m+[m		[32m//..........[m
+[32m+[m		[32m//[0-9]* »»» MULTIPLE CHARACTERS ENTRE 0 E 9[m
+[32m+[m		[32m//^[0-9] »»» MUST START COM UM CHARACTER ENTRE 0 E 9[m[41m [m
+[32m+[m		[32m//[0-9]$ »»» MUST END COM UM CHARACTER ENTRE 0 E 9[m[41m [m
+[32m+[m		[32mif( strSeconds.match(/^[0-9]*$/) )[m
+[32m+[m		[32m{[m
+[32m+[m			[32mthis.refs.seconds.value = '';[m
+[32m+[m			[32mthis.props.onSetCountdown(parseInt(strSeconds, 10));[m
+[32m+[m		[32m}[m
+[32m+[m	[32m},[m
+[32m+[m	[32m//..........[m[41m	[m
+[32m+[m	[32mrender: function()[m
+[32m+[m	[32m{[m
+[32m+[m		[32mreturn (<div>[m
+[32m+[m					[32m<form ref="form" onSubmit={this.onSubmit} className="countdown-form">[m
+[32m+[m						[32m<input type="text" ref="seconds" placeholder="Enter time in seconds" />[m
+[32m+[m						[32m<button className="button expanded">Start</button>[m
+[32m+[m					[32m</form>[m[41m	[m
+[32m+[m			[32m</div>)[m
+[32m+[m	[32m}[m
+[32m+[m[32m});[m
+[32m+[m
+[32m+[m[32mmodule.exports = CountdownForm;[m
+\ No newline at end of file[m
+[1mdiff --git a/app/components/Main.jsx b/app/components/Main.jsx[m
+[1mindex 2a496c2..80c60f1 100644[m
+[1m--- a/app/components/Main.jsx[m
+[1m+++ b/app/components/Main.jsx[m
+[36m@@ -18,10 +18,9 @@[m [mvar Main = React.createClass([m
+ var Main = (props) => {[m
+ 	return ([m
+ 			<div>[m
+[31m- 				<div>[m
+[31m-					<div>[m
+[31m-						<Navigation/>[m
+[31m-						<p>Main.jsx Rendered</p>[m
+[32m+[m				[32m<Navigation/>[m
+[32m+[m[41m [m				[32m<div className="row">[m
+[32m+[m					[32m<div className="column small-centered medium-6 large-4">[m
+ 						{props.children}[m
+ 					</div>[m
+ 				</div>[m
+[1mdiff --git a/app/tests/app.tests.jsx b/app/tests/app.tests.jsx[m
+[1mindex 1dcf889..eecfd57 100644[m
+[1m--- a/app/tests/app.tests.jsx[m
+[1m+++ b/app/tests/app.tests.jsx[m
+[36m@@ -13,9 +13,11 @@[m [mvar expect = require('expect');[m
+ [m
+ //..........2º Teste - describe (Lec.68 17.09)[m
+ //com describe, devia dar info. mais 'human readable', mas isso não acontece;[m
+[32m+[m[32m/*[m
+ describe('App', () => {[m
+ 	it('should properly run tests', () => {[m
+ 		expect(1).toBe(1);[m
+ [m
+ 	});[m
+ });[m
+[32m+[m[32m*/[m
+[1mdiff --git a/app/tests/components/Clock.tests.jsx b/app/tests/components/Clock.tests.jsx[m
+[1mindex b275237..e7de3a9 100644[m
+[1m--- a/app/tests/components/Clock.tests.jsx[m
+[1m+++ b/app/tests/components/Clock.tests.jsx[m
+[36m@@ -12,6 +12,7 @@[m [mdescribe('Clock', () => {[m
+ 		expect(Clock).toExist();[m
+ 	});[m
+ 	*/[m
+[32m+[m	[32m/*[m
+ 	describe('render', () => {[m
+ 		it('should render clock to output!', () => {[m
+ 			var clock = TestUtils.renderIntoDocument(<Clock totalSeconds={62}/>);[m
+[36m@@ -23,6 +24,7 @@[m [mdescribe('Clock', () => {[m
+ 			expect(actualText).toBe('01:02'); 				[m
+ 		});[m
+ 	});[m
+[32m+[m	[32m*/[m
+ 	/*[m
+ 	describe('formatSeconds', () => {[m
+ 		it('should format seconds', () => {[m
+[1mdiff --git a/app/tests/components/Countdown.tests.jsx b/app/tests/components/Countdown.tests.jsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8174523[m
+[1m--- /dev/null[m
+[1m+++ b/app/tests/components/Countdown.tests.jsx[m
+[36m@@ -0,0 +1,61 @@[m
+[32m+[m[32mvar expect = require('expect');[m
+[32m+[m[32mvar React = require('react');[m
+[32m+[m[32mvar ReactDOM = require('react-dom');[m
+[32m+[m[32mvar TestUtils = require('react-addons-test-utils');[m
+[32m+[m[32mvar $ = require('jQuery');[m
+[32m+[m[32mvar ReactDOM = require('react-dom');[m
+[32m+[m
+[32m+[m[32mvar Countdown = require('Countdown');[m
+[32m+[m
+[32m+[m[32mdescribe('Countdown', () => {[m
+[32m+[m
+[32m+[m	[32mit('Countdown should exist!', () => {[m
+[32m+[m		[32mexpect(Countdown).toExist();[m
+[32m+[m
+[32m+[m	[32m});[m
+[32m+[m[41m		[m
+[32m+[m	[32m/*it('should not call onSetCountdown if invalid seconds entered', () => {[m
+[32m+[m		[32mvar spy = expect.createSpy();[m
+[32m+[m		[32mvar countdownForm = TestUtils.renderIntoDocument(<CountdownForm onSetCountdown={spy}/>);[m
+[32m+[m		[32mvar $el = $(ReactDOM.findDOMNode(countdownForm));[m
+[32m+[m
+[32m+[m		[32mcountdownForm.refs.seconds.value = '109b';[m
+[32m+[m		[32mTestUtils.Simulate.submit($el.find('form')[0]);[m
+[32m+[m
+[32m+[m		[32mexpect(spy).toNotHaveBeenCalled();[m
+[32m+[m
+[32m+[m	[32m});[m
+[32m+[m	[32
