@@ -2,6 +2,7 @@ var React 		= require('react');
 var ReactDOM 	= require('react-dom');
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
+var TodoApp 	= require('TodoApp');
 //.......... 
 
 //Load foundation (CARREGA UM FILE CSS DIRECTA/ NUM FILE JSX(!!!))  (Lec.51 ~10:00)
@@ -15,10 +16,11 @@ require('style!css!sass!applicationStyles');
 //<Route path="countdown" component={Countdown} />
 //<IndexRoute path="timer" component={Timer} />
 
-
+//<TodoApp/>,  <p>Boilerplate 3</p>
 ReactDOM.render( 
 			
-			<p>Boilerplate 3</p>,
+			<TodoApp/>,
+
 
   			document.getElementById('app')
 );

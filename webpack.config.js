@@ -7,7 +7,7 @@ module.exports = {
 	entry:  [ 	//alteração para Foundation: several entries
 				//script! »»» SÃO FILES JS COMUNS E NÃO WEBPACK MODULES;
 				'script!jquery/dist/jquery.min.js', 				//alteração para Foundation
-				'script!foundation-sites/dist/foundation.min.js', //alteração para Foundation
+				'script!foundation-sites/dist/js/foundation.min.js', //alteração para Foundation
 				//'css!foundation-sites/dist/foundation.min.css', //NR DESTA FORMA NÃO FUNCIONA
 				'./app/app.jsx'
 	],
@@ -30,6 +30,10 @@ module.exports = {
 	},
 	resolve: {
 		root: __dirname, 		//var fornecida pelo node js
+		modulesDirectories: [ 	//Lec. 86 - Nova forma de criar os 'alias'
+			'node_modules',
+			'./app/components'
+		],
 		alias: { 				//path das components a criar; ao indicar o path aqui, basta indicar o nome da component, sem path
 
 				applicationStyles:'app/styles/app.scss' 		//Lec.58
