@@ -3,6 +3,8 @@ var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch');
 
+var uuid = require('node-uuid');	//Lec. 93, após instalar a dependência com o node (npm install node-uuid --save-dev)
+
 var TodoApp = React.createClass({
 	//............
 	getInitialState: function()
@@ -12,19 +14,19 @@ var TodoApp = React.createClass({
 			searchText: '', 		//string
 			todos: [
 				{
-					id: 1,
+					id: uuid(),
 					text: "Walk the dog"
 				},
 				{
-					id: 2,
+					id: uuid(),
 					text: "Clan the yard"
 				},
 				{
-					id: 3,
+					id: uuid(),
 					text: "Leave mail on porch"
 				},
 				{
-					id: 4,
+					id: uuid(),
 					text: "Play video games"
 				}
 			]
@@ -35,6 +37,15 @@ var TodoApp = React.createClass({
 	handleAddTodo: function(text)
 	{
 		console.log('TodoApp  »»»  handleAddTodo text:::' + text);
+		this.setState({
+			todos: [
+				...this.state.todos,	//com o spread operator, incluir os já existentes;
+				{						//adicionar o novo todo
+					id: uuid(),
+					text: text
+				}
+			]
+		})
 	},	
 	//............ TodoSearch callback		
 	handleSearch: function(showCompleted, searchText)
