@@ -10,6 +10,7 @@ var TodoApp = require('TodoApp');
 
 describe('TodoApp', () => {
 	//..............
+	/*
 	it('TodoApp should exist', () => {
 		expect(TodoApp).toExist();
 	});
@@ -23,6 +24,24 @@ describe('TodoApp', () => {
 		todoApp.handleAddTodo(todoText);
 
 		expect(todoApp.state.todos[0].text).toBe(todoText);
+	});
+	*/
+	//.............. Lec. 96
+	it('************should toggle completed value when handleToggle called************', () => {
+		var  todoData = {
+			id: 11,
+			text: 'Test features',
+			completed: false
+		}
+
+		var todoApp = TestUtils.renderIntoDocument(<TodoApp/>);	
+		expect(todoApp).toExist();
+		todoApp.setState({ todos: [todoData] });
+		
+		todoApp.handleToggle(11, true);
+		expect(todoApp.state.todos[0].completed).toBe(true);
+		//.............
+		
 	});
 	//..............	
 });

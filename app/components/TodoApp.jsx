@@ -15,19 +15,23 @@ var TodoApp = React.createClass({
 			todos: [
 				{
 					id: uuid(),
-					text: "Walk the dog"
+					text: "Walk the dog",
+					completed: false
 				},
 				{
 					id: uuid(),
-					text: "Clan the yard"
+					text: "Clan the yard",
+					completed: true
 				},
 				{
 					id: uuid(),
-					text: "Leave mail on porch"
+					text: "Leave mail on porch",
+					completed: true
 				},
 				{
 					id: uuid(),
-					text: "Play video games"
+					text: "Play video games",
+					completed: false
 				}
 			]
 		}
@@ -42,7 +46,8 @@ var TodoApp = React.createClass({
 				...this.state.todos,	//com o spread operator, incluir os já existentes;
 				{						//adicionar o novo todo
 					id: uuid(),
-					text: text
+					text: text,
+					completed: false 	//NOVO ELEMENTO, DEVE TER false, não completado
 				}
 			]
 		})
@@ -55,6 +60,41 @@ var TodoApp = React.createClass({
 						showCompleted: 	showCompleted,
 						searchText: 	searchText.toLowerCase()
 					});
+	},
+	//............ from TodoList »»» from Todo (Alterações checkbox)
+	//............ NO VIDEO 95, APENAS ENVIA O ID, FUNCIONA PORQUE SÓ EXISTEM 2 VALORES POSSÍVEIS
+	//............ MAS NÃO É CORRECTO, VER NOTAS EM Sec.08 Lect.95
+	handleToggle: function(id, valor)
+	{
+		//console.log("TodoApp »»» id:::" + id + " | valor:::" + valor);
+
+		//......... Alterar valor nos todos
+		var total = this.state.todos.length;
+		var todosAux = this.state.todos.map(function(todo)
+		{
+			if(todo.id === id)
+			{
+				console.log("TodoApp onChangeTodo »»» todos_.id === id!!!");
+				todo.completed = valor;
+			}	
+
+			return todo;
+		});
+		/*	console.log("TodoApp »»» todosAux total:::" + todosAux.length );
+
+			for (var i = 0; i < total; i++) 
+			{
+				var todos_ = todosAux[i];
+				//console.log("TodoApp onChangeTodo »»» todos_:::" + todos_.id);
+				if(todos_.id === id)
+				{
+					console.log("TodoApp onChangeTodo »»» todos_.id === id!!!");
+					todos_.completed = valor;
+				}	
+			}
+		*/
+		//......... 
+		this.setState({todos: todosAux});
 	},	
 	//............		
 	render: function()
@@ -64,7 +104,7 @@ var TodoApp = React.createClass({
 		return (
 				<div>
 					<TodoSearch onSearch={this.handleSearch}/>
-					<TodoList todos={todos}/>
+					<TodoList todos={todos} onToggle={this.handleToggle} />
 					<AddTodo handleAddTodo={this.handleAddTodo} />
 				</div>
 			)
