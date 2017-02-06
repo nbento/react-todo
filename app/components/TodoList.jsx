@@ -16,9 +16,16 @@ var TodoList = React.createClass({
 	{
 		////return (<li key={item.id} > ID::: {item.id} | TEXT:::{item.text}</li>)
 		var {todos} = this.props;
+
 		var renderTodos = () => {
-			return (
-						todos.map((todo) =>
+			if (todos.length === 0 )
+			{
+				return (
+						<p className="container__message">Nothing To Do</p>
+					)
+			}	
+
+			return (todos.map((todo) =>
 						{
 							return (<Todo numId={todo.id} 
 											key={todo.id} {...todo} 
@@ -29,11 +36,11 @@ var TodoList = React.createClass({
 		}
 		//............
 		return (
-					<div>
-						<ul>
-							{renderTodos()}
-						</ul>
-					</div>
+				<div>
+					<ul>
+						{renderTodos()}
+					</ul>
+				</div>
 			)
 	}
 });

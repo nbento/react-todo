@@ -27,7 +27,7 @@ describe('TodoApp', () => {
 
 		//.............//Lec. 102
 		//expect createAt toBe a number   //expect(2).toBeA('number')
-		expect(todoApp.state.todos[0].createAt).toBeA('number');
+		expect(todoApp.state.todos[0].createdAt).toBeA('number');
 	});
 	
 	//.............. Lec. 96

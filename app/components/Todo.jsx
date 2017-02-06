@@ -23,8 +23,10 @@ var Todo = React.createClass({
 	render: function()
 	{
 		//.......... elementos enviados do parent, com o spread operator
-		//.....Lec. 102, createdAt para o tempo
+		//.....Lec. 102, createdAt para o tempo, completedAt
 		var {text, id, completed, createdAt, completedAt} = this.props;
+		//consoante o valor de completed, insere uma class
+		var todoClassName = completed  ?  'todo todo-completed'  :  'todo' ;   //Lec. 104;
 		//.....Lec. 102
 		var renderDate = () => {
 			var message = 'Created ';
@@ -52,13 +54,17 @@ var Todo = React.createClass({
 						{text}
 					</div>
 				*/
-				<div>
-					<input 
-						type="checkbox" 
-						defaultChecked={completed} 
-						onChange={this.handleCheckboxChange}   /> {/*DIFERENTE DO VÍDEO*/}
-					<p>{text}</p>
-					<p>{renderDate()}</p>
+				<div className={todoClassName}>
+					<div>
+						<input 
+							type="checkbox" 
+							defaultChecked={completed} 
+							onChange={this.handleCheckboxChange}   /> {/*DIFERENTE DO VÍDEO*/}
+					</div>	
+					<div>
+						<p>{text}</p>
+						<p className="todo__subtext">{renderDate()}</p>
+					</div>	
 				</div>
 			)
 	}
