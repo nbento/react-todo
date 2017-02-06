@@ -50,11 +50,11 @@ module.exports = {
 		var filteredTodos = todos;
 		
 		//......... Filter by showCompleted
-		/*	filteredTodos = filteredTodos.filter( (todo) => {
+			filteredTodos = filteredTodos.filter( (todo) => {
 				//se  a prop completed == false, o elemento é mantido no array
 				return !todo.completed || showCompleted;
 			});
-		*/
+		
 		//......... Filter by searchText (Lec. 100)
 			/*
 				updatedList = updatedList.filter(
@@ -76,7 +76,7 @@ module.exports = {
 		//......... Sort todos with non-completed first (Lec. 100)
 			//method .sort: doesn't return new array, mo
 			//......... Objectivo: se prop completed = false, devem aparecer 1º;
-		/*	filteredTodos.sort( (a, b) => {
+			filteredTodos.sort( (a, b) => {
 				//......... se a for false e b for true, deve ser 1º
 				if(!a.completed && b.completed)
 				{
@@ -88,9 +88,7 @@ module.exports = {
 					return 0 
 				}
 			}); 
-		*/	
-		
-
+			
 		return filteredTodos;
 	}
 	//..........
