@@ -1,4 +1,5 @@
 var React = require('React');
+var moment = require('moment');
 
 var Todo = React.createClass({
 	//...........
@@ -22,7 +23,21 @@ var Todo = React.createClass({
 	render: function()
 	{
 		//.......... elementos enviados do parent, com o spread operator
-		var {text, id, completed} = this.props;
+		//.....Lec. 102, createdAt para o tempo
+		var {text, id, completed, createdAt, completedAt} = this.props;
+		//.....Lec. 102
+		var renderDate = () => {
+			var message = 'Created ';
+			var timestamp = createdAt;
+			//SE COMPLETOU, MOSTRA OUTRA MENSAGEM
+			if(completed)
+			{
+				message = 'Completed ';
+				timestamp = completedAt;
+			}
+
+			return message + moment.unix(timestamp).format('MMM Do YYYY @ h:mm a');
+		}
 		console.log( "TODO.jsx  »»»  completed:::" + completed );
 		//<li> COMPLETED::: {completed.toString()} | TEXT:::{text}</li>)
 		//ref="checkCompleted"
@@ -42,7 +57,8 @@ var Todo = React.createClass({
 						type="checkbox" 
 						defaultChecked={completed} 
 						onChange={this.handleCheckboxChange}   /> {/*DIFERENTE DO VÍDEO*/}
-					TEXT:::{text}
+					<p>{text}</p>
+					<p>{renderDate()}</p>
 				</div>
 			)
 	}

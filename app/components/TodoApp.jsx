@@ -1,5 +1,6 @@
 var React = require('react');
 var uuid = require('node-uuid');	//Lec. 93, após instalar a dependência com o node (npm install node-uuid --save-dev)
+var moment = require('moment');
 
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
@@ -56,7 +57,10 @@ var TodoApp = React.createClass({
 				{						//adicionar o novo todo
 					id: uuid(),
 					text: text,
-					completed: false 	//NOVO ELEMENTO, DEVE TER false, não completado
+					completed: false, 	//NOVO ELEMENTO, DEVE TER false, não completado
+					createdAt: moment().unix(),  //Lec. 102
+					//recebe valor no handleToggle, quando altera a checkbox;
+					completedAt: undefined  //Lec. 102
 				}
 			]
 		})
@@ -85,6 +89,7 @@ var TodoApp = React.createClass({
 			{
 				console.log("TodoApp onChangeTodo »»» todos_.id === id!!!");
 				todo.completed = valor;
+				todo.completedAt = todo.completed ? moment().unix() : undefined;
 			}	
 
 			return todo;
