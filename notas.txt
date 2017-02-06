@@ -2,6 +2,3 @@ N:\E\www\React\UdemyReact\Exercicios\ReactToDo\ReactTodo
 cd N:/E/www/React/UdemyReact/Exercicios/ReactToDo/ReactTodo/
 
 
-Os node_modules não foram copiados, porque demoram muito tempo a copiar;
-
-

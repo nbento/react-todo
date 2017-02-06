@@ -27,6 +27,7 @@ describe('TodoApp', () => {
 	});
 	*/
 	//.............. Lec. 96
+	/*
 	it('************should toggle completed value when handleToggle called************', () => {
 		var  todoData = {
 			id: 11,
@@ -43,6 +44,7 @@ describe('TodoApp', () => {
 		//.............
 		
 	});
+	*/
 	//..............	
 });
 	

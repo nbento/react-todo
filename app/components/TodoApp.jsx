@@ -1,18 +1,23 @@
 var React = require('react');
+var uuid = require('node-uuid');	//Lec. 93, após instalar a dependência com o node (npm install node-uuid --save-dev)
+
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch');
 
-var uuid = require('node-uuid');	//Lec. 93, após instalar a dependência com o node (npm install node-uuid --save-dev)
+var TodoAPI = require('TodoAPI'); 	//Lec. 97
+
+
 
 var TodoApp = React.createClass({
 	//............
 	getInitialState: function()
 	{
 		return {
-			showCompleted : false,  //  true | false
-			searchText: '', 		//string
-			todos: [
+			showCompleted : false,  	//  true | false
+			searchText: '', 			//string
+			todos: TodoAPI.getTodos() 	//Lec. 97, Substitui o array de objectos
+			/*todos: [
 				{
 					id: uuid(),
 					text: "Walk the dog",
@@ -33,14 +38,18 @@ var TodoApp = React.createClass({
 					text: "Play video games",
 					completed: false
 				}
-			]
+			]*/
 		}
-
+	},
+	//............Lec. 97		
+	componentDidUpdate: function(text)
+	{
+		TodoAPI.setTodos(this.state.todos);
 	},
 	//............		
 	handleAddTodo: function(text)
 	{
-		console.log('TodoApp  »»»  handleAddTodo text:::' + text);
+		//console.log('TodoApp  »»»  handleAddTodo text:::' + text);
 		this.setState({
 			todos: [
 				...this.state.todos,	//com o spread operator, incluir os já existentes;
@@ -95,16 +104,21 @@ var TodoApp = React.createClass({
 		*/
 		//......... 
 		this.setState({todos: todosAux});
-	},	
+	},
 	//............		
 	render: function()
 	{
-		var {todos} = this.state;
-
+		//var {todos} = this.state;
+		//var {todos, showCompleted, searchText} = this.state;
+    	//var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+		//.......... Lec. 99 (Filter todos)
+		var {todos, showCompleted, searchText} = this.state;
+		var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+		//.......... 
 		return (
 				<div>
 					<TodoSearch onSearch={this.handleSearch}/>
-					<TodoList todos={todos} onToggle={this.handleToggle} />
+					<TodoList todos={filteredTodos}  onToggle={this.handleToggle} />
 					<AddTodo handleAddTodo={this.handleAddTodo} />
 				</div>
 			)

@@ -9,6 +9,7 @@ var AddTodo = require('AddTodo');
 //.......... Permitir agrupar vários testes e denominá-los;
 
 describe('AddTodo', () => {
+	/*
 	it('should exist', () => {
 		expect(AddTodo).toExist();
 	});
@@ -36,4 +37,5 @@ describe('AddTodo', () => {
 
 		expect(spy).toNotHaveBeenCalled();
 	});
+	*/
 });	

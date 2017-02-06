@@ -9,9 +9,11 @@ var Todo = require('Todo');
 
 //.......... Permitir agrupar vários testes e denominá-los;
 describe('TodoList', () => {
+	/*
 	it('TodoList should exist', () => {
 		expect(TodoList).toExist();
 	});
+	*/
 	//...........----- NÃO FUNCIONOU, MAS NO VIDEO ESTÁ CORRECTO
 	/*
 	it('should render one Todo component for each todo item+++++++++++++', () => {

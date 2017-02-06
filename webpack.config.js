@@ -32,7 +32,9 @@ module.exports = {
 		root: __dirname, 		//var fornecida pelo node js
 		modulesDirectories: [ 	//Lec. 86 - Nova forma de criar os 'alias'
 			'node_modules',
-			'./app/components'
+			'./app/components',
+			'./app/api'
+
 		],
 		alias: { 				//path das components a criar; ao indicar o path aqui, basta indicar o nome da component, sem path
 

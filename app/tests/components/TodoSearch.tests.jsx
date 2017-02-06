@@ -9,6 +9,7 @@ var TodoSearch = require('TodoSearch');
 //.......... Permitir agrupar vários testes e denominá-los;
 
 describe('TodoSearch ++++++++++++*******************', () => {
+	/*
 	it('TodoSearch  should exist', () => {
 		expect(TodoSearch).toExist();
 	});
@@ -42,5 +43,6 @@ describe('TodoSearch ++++++++++++*******************', () => {
 
 		expect(spy).toHaveBeenCalledWith(true, '');
 	});
+	*/
 	//...............
 });	
