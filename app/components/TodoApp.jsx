@@ -7,16 +7,32 @@ var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch');
 
 var TodoAPI = require('TodoAPI'); 	//Lec. 97
+/*
+//require('./redux-example.jsx');
+var redux = require('redux');
+//var axios = require('axios');
+//............Lec. 117 Redux
+var actions = require('./../actions/actions');
+var store   = require('./../store/configureStore').configure();
+var unsubscribe = store.subscribe(()=>{
+	var state = store.getState();
 
+	console.log('SUBSCRIBE »»» searchText:::', state.searchText);
+	console.log('SUBSCRIBE »»» SHOWCOMPLETED:::', state.showCompleted);
+	console.log('========================');
+	//document.getElementById('app').innerHTML = state.name;
 
-
+	//console.log('New state', store.getState());
+	//.............. Lec. 115	
+});
+*/
 var TodoApp = React.createClass({
 	//............
 	getInitialState: function()
 	{
 		return {
-			showCompleted : false,  	//  true | false
-			searchText: '', 			//string
+			showCompleted : false,  //store.dispatch(actions.getCompleted(false)),  	//  true | false
+			searchText: '', 		//store.dispatch(actions.changeText('')), 			//string
 			todos: TodoAPI.getTodos() 	//Lec. 97, Substitui o array de objectos
 			/*todos: [
 				{
@@ -43,14 +59,19 @@ var TodoApp = React.createClass({
 		}
 	},
 	//............Lec. 97		
-	componentDidUpdate: function(text)
+	componentDidUpdate: function()
 	{
+		console.log('****************COMPONENTDIDUPDATE');
 		TodoAPI.setTodos(this.state.todos);
 	},
+	/*componentWillReceiveProps: function()
+	{
+		console.log('-------------------componentWillReceiveProps');
+	},*/
 	//............		
 	handleAddTodo: function(text)
 	{
-		//console.log('TodoApp  »»»  handleAddTodo text:::' + text);
+		console.log('TodoApp  »»»  handleAddTodo text:::' + text);
 		this.setState({
 			todos: [
 				...this.state.todos,	//com o spread operator, incluir os já existentes;
@@ -68,11 +89,15 @@ var TodoApp = React.createClass({
 	//............ TodoSearch callback		
 	handleSearch: function(showCompleted, searchText)
 	{
-		console.log('TodoApp  »»»  handleSearch searchText:::' + searchText );
+		//console.log('TodoApp  »»»  handleSearch searchText:::' + searchText );
+		var texto = searchText; 		//store.dispatch(actions.changeText(searchText.toLowerCase()));
+		var completed = showCompleted;  //store.dispatch(actions.getCompleted(showCompleted));
+		
 		this.setState({ 
-						showCompleted: 	showCompleted,
-						searchText: 	searchText.toLowerCase()
+						showCompleted: 	completed,//showCompleted, 
+						searchText: 	texto//searchText.toLowerCase()
 					});
+		this.componentDidUpdate();	
 	},
 	//............ from TodoList »»» from Todo (Alterações checkbox)
 	//............ NO VIDEO 95, APENAS ENVIA O ID, FUNCIONA PORQUE SÓ EXISTEM 2 VALORES POSSÍVEIS
