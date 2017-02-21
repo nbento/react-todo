@@ -40,7 +40,8 @@ module.exports = {
 
 				applicationStyles:'app/styles/app.scss', 		//Lec.58
 				actions: 'app/actions/actions.jsx', 				//Lec. 117
-				reducers: 'app/reducers/reducers.jsx'  			//Lec. 118
+				reducers: 'app/reducers/reducers.jsx',  			//Lec. 118
+				configureStore: 'app/store/configureStore.jsx' 
 		},
 		extensions: ['', '.js', '.jsx']  //Deixa de ser necessário indicar a extensão no require
 	},

@@ -9,7 +9,7 @@ var moment = require('moment');
 		//action.someProp = "Ddddd";
 		switch(action.type)
 		{
-			case 'SET_SEARCH_TEXT':
+			case 'SEARCH_TEXT':
 				return action.searchText;
 			default:
 				return state;	
@@ -33,7 +33,7 @@ var moment = require('moment');
 				return [
 						...state,
 						{
-							//O ÚNICO QUE É ADCIONADO PELA ACTION É O text,
+							//O ÚNICO QUE É ADICIONADO PELA ACTION 'ADD_TODO', É O text,
 							//OS RESTANTES, NÃO PRECISAM DE PARAMETERS
 							id: 		uuid(),
  							text: 		action.text,  		//"Walk the dog",

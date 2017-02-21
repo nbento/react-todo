@@ -7,10 +7,10 @@
 //............ ACTIONS
 	//............ ACTION GENERATORS
 	//.............. Lec. 117
-	export	var setSearchText = (searchText)=>
+	export	var searchText = (searchText)=>
 	{
 		return {
-			type: 'SET_SEARCH_TEXT',
+			type: 'SEARCH_TEXT',
 			searchText 		
 		}
 	}
