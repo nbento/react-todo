@@ -1,28 +1,29 @@
 //............
-//Lec. 117
+//Lec. 118
 //............
-//var nextHobby   = 1;
-//var nextMovieId = 1;
+
 //............REDUCERS
 	export	var searchTextReducer = (state = '', action) => {
+		//action.someProp = "Ddddd";
 		switch(action.type)
 		{
-			case 'CHANGE_TEXT':
-				return action.texto;
+			case 'SET_SEARCH_TEXT':
+				return action.searchText;
 			default:
 				return state;	
 		}
 	}
-
-	export	var showCompletedReducer = (state = '', action) => {
+	//............showCompletedReducer, default false,TOGGLE_SHOW_COMPLETED
+	export	var showCompletedReducer = (state = false, action) => {
 		switch(action.type)
 		{
-			case 'GET_SHOW_COMPLETED':
-				return action.completada;
+			case 'TOGGLE_SHOW_COMPLETED':
+				return !state;
 			default:
 				return state;	
 		}
 	}
+	//............
 /*	
 	//............
 	export	var hobbiesReducer = (state = [], action) => {

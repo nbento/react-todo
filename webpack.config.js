@@ -39,8 +39,8 @@ module.exports = {
 		alias: { 				//path das components a criar; ao indicar o path aqui, basta indicar o nome da component, sem path
 
 				applicationStyles:'app/styles/app.scss', 		//Lec.58
-				actions: 'app/actions/actions.jsx' 				//Lec. 117
-				
+				actions: 'app/actions/actions.jsx', 				//Lec. 117
+				reducers: 'app/reducers/reducers.jsx'  			//Lec. 118
 		},
 		extensions: ['', '.js', '.jsx']  //Deixa de ser necessário indicar a extensão no require
 	},
