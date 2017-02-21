@@ -1,8 +1,10 @@
 //............
 //Lec. 118
 //............
-
+var uuid = require('node-uuid');	//Lec. 93, após instalar a dependência com o node (npm install node-uuid --save-dev)
+var moment = require('moment');
 //............REDUCERS
+	//............
 	export	var searchTextReducer = (state = '', action) => {
 		//action.someProp = "Ddddd";
 		switch(action.type)
@@ -20,6 +22,45 @@
 			case 'TOGGLE_SHOW_COMPLETED':
 				return !state;
 			default:
+				return state;	
+		}
+	}
+	//............Lec. 119
+	export var todosReducer = (state = [], action)=> {
+		switch (action.type)
+		{
+			case 'ADD_TODO':
+				return [
+						...state,
+						{
+							//O ÚNICO QUE É ADCIONADO PELA ACTION É O text,
+							//OS RESTANTES, NÃO PRECISAM DE PARAMETERS
+							id: 		uuid(),
+ 							text: 		action.text,  		//"Walk the dog",
+							completed: 	false,
+							createdAt: moment().unix(),  	//Lec. 102
+ 							completedAt: undefined  		//Lec. 102
+						}
+				]
+			//.........
+			case 'TOGGLE_TODO':
+				//SE ID MATCHES, TOGGLE PROP completed
+				return state.map((todo)=>
+					{
+						if(todo.id === action.id)
+						{
+						 	var nextCompleted = !todo.completed;
+						 	//todo.completed = !todo.completed;
+
+						 	return {
+						 		...todo,
+						 		completed: nextCompleted,
+						 		completedAt: nextCompleted ? moment().unix():undefined
+						 	}
+						} 	 	
+					});					
+			//.........		
+			default: 
 				return state;	
 		}
 	}
