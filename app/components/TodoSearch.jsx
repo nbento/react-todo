@@ -1,4 +1,8 @@
 var React = require('react');
+var {connect} = require('react-redux'); //Lec. 121
+
+var actions = require('actions'); //Lec. 121 adicionar redux
+
 
 var TodoSearch = React.createClass({
 	//...........
@@ -11,10 +15,14 @@ var TodoSearch = React.createClass({
 	//........... onChange no inputtext e na checkbox
 	handleSearch: function()
 	{
+		var {dispatch} = this.props;
 		var showCompleted = this.refs.showCompleted.checked; 	//checkbox
 		var searchText = this.refs.searchText.value; 			//inputtext
 
-		 this.props.onSearch(showCompleted, searchText);
+		 //this.props.onSearch(showCompleted, searchText);
+		 //console.log('TodoSearch  handleSearch  searchText:::'+searchText);
+		 dispatch(actions.searchText(searchText));
+		 //dispatch(actions.toggleShowCompleted(showCompleted));
 	},
 	//...........
 	render: function()
@@ -31,7 +39,7 @@ var TodoSearch = React.createClass({
 						<label>
 								<input type="checkbox" 
 										ref="showCompleted"
-										placeholder="Search todos"
+										
 										onChange={this.handleSearch} />
 								Show Completed todos		
 						</label>
@@ -41,4 +49,5 @@ var TodoSearch = React.createClass({
 	}
 });
 
-module.exports = TodoSearch;		
+//module.exports = TodoSearch;		
+module.exports = connect()(TodoSearch);  //Lec. 121		

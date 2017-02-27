@@ -1,21 +1,24 @@
 var React 		= require('react');
 var ReactDOM 	= require('react-dom');
+var {Provider} 	= require('react-redux');	//Lec. 121
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
 var TodoApp 	= require('TodoApp');
 
 //..........
-var actions = require('actions');
-var store = require('configureStore').configure();	
+	var actions = require('actions');
+	var store = require('configureStore').configure();	
 
-store.subscribe(()=>
-{
-	console.log('New state', store.getState());	
-}); 
-//..........
+	store.subscribe(()=>
+	{
+		//console.log('New state', store.getState());
+		var state_ = store.getState();	
+		console.log('New state  state_.searchText:::', state_.searchText);	
+	});
+//..........Lec. 120
 store.dispatch(actions.addTodo('Clean the yard'));
-store.dispatch(actions.searchText('yard'));
-store.dispatch(actions.toggleShowCompleted());
+//store.dispatch(actions.searchText('yard'));
+//store.dispatch(actions.toggleShowCompleted());
 //..........
 
 //Load foundation (CARREGA UM FILE CSS DIRECTA/ NUM FILE JSX(!!!))  (Lec.51 ~10:00)
@@ -30,10 +33,16 @@ require('style!css!sass!applicationStyles');
 //<IndexRoute path="timer" component={Timer} />
 
 //<TodoApp/>,  <p>Boilerplate 3</p>
+/*
 ReactDOM.render( 
-			
 			<TodoApp/>,
-
-
+  			document.getElementById('app')
+);
+*/
+//..........Lec. 121 Provider
+ReactDOM.render( 
+			<Provider store={store}>
+				<TodoApp/>
+			</Provider>,
   			document.getElementById('app')
 );

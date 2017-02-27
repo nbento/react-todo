@@ -1,48 +1,61 @@
-var React = require('React');
-var Todo = require('Todo');
+var React = require('react');
+var {connect} = require('react-redux');
+//var Todo = require('Todo');
+import Todo from 'Todo';  //...Lec. 123 
 
-var TodoList = React.createClass({
-	//............
-	
-	//............ AL MUDAR O VALOR NA CHECKBOX TODO: (key | false/true)
-	/*changeTodo: function(id, valor)
-	{
-		//console.log("TodoList »»» id:::" + id + " | valor:::" + valor);
+export var TodoList = React.createClass(
+{
+  render: function () 
+  {
+        console.log('TodoList  render********************');
+        //todos já não são enviados do parent,
+        //são obtidos do Redux;
+        var {todos} = this.props;
 
-		this.props.onChangeTodo(id, valor);
-	},*/
-	//............
-	render: function()
-	{
-		////return (<li key={item.id} > ID::: {item.id} | TEXT:::{item.text}</li>)
-		var {todos} = this.props;
+        var renderTodos = () => {
+          //console.log('TODOS.LENGTH:::'+todos.length);
+          if (todos.length === 0) 
+          {
+            return (
+              <p className="container__message">Nothing To Do</p>
+            );
+          }
 
-		var renderTodos = () => {
-			if (todos.length === 0 )
-			{
-				return (
-						<p className="container__message">Nothing To Do</p>
-					)
-			}	
+          return todos.map((todo) => {
+            //console.log('TODO.ID:::'+todo.id);
+            return (
+              //<Todo key={todo.id} {...todo} onToggle={this.props.onToggle} />
+              <Todo numId={todo.id} key={todo.id} {...todo} />
+            )
+          })
+        }
 
-			return (todos.map((todo) =>
-						{
-							return (<Todo numId={todo.id} 
-											key={todo.id} {...todo} 
-											onToggle={this.props.onToggle} 
-									/>)
-						})
- 					)
-		}
-		//............
-		return (
-				<div>
-					<ul>
-						{renderTodos()}
-					</ul>
-				</div>
-			)
-	}
+        return (
+          <div>
+            {renderTodos()}
+          </div>
+        )
+  }
 });
+//........... 
+//module.exports = TodoList;
+//........... 
+/*//Lec.122 ~11.41, DESACTIVADA PARA OS TESTES, SUBSTITUIDA PELO CODIGO ABAIXO,
+//QUE DÁ PROBLEMAS EM 2017.02, VER NOTAS EM udemyReactNotas.txt, LEC. 122
+  module.exports = connect(
+    (state) => {
+      return {
+        todos: state.todos
+      };
+    }
+  )(TodoList);
+*/
+//........... ACTIVADA PARA OS TESTES, LEC.122
+export default connect(
+  (state) => {
+    return {
+      todos: state.todos
+    };
+  }
+)(TodoList);
 
-module.exports = TodoList;

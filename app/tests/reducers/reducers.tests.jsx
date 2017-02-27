@@ -15,12 +15,12 @@ describe('Reducers', ()=>
 		it('Should set searchText', ()=>
 		{
 			var action = {
-				type: 'SET_SEARCH_TEXT',
-				searchText: 'Dog'	
+				type: 'SEARCH_TEXT',
+				text: 'Dog'	
 			};
 			var res = reducers.searchTextReducer(df(''), df(action));
 			//var res = reducers.searchTextReducer('', action);
-			expect(res).toEqual(action.searchText);
+			expect(res).toEqual(action.text);
 		});
 		//..........
 	});

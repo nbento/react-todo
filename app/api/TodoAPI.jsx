@@ -24,12 +24,14 @@ module.exports = {
 		//..........
 		var stringTodos = localStorage.getItem('todos');
 		var todos = [];
+		//console.log('TodoAPI  stringTodos:::' + stringTodos);
 		//.....
 		// JSON.parse, convert string to array (reverso do JSON.stringify),
 		//mas pode dar erros, por isso usa-se try/catch
 		try {
 			//ERROR    todos.JSON.parse(stringTodos);
 			todos = JSON.parse(stringTodos);
+			//console.log('TodoAPI  todos:::' + todos);
 		} catch (e) {
 
 		}
@@ -48,7 +50,11 @@ module.exports = {
 	filterTodos: function(todos, showCompleted, searchText)
 	{
 		var filteredTodos = todos;
-		
+		//......... 
+		filteredTodos.forEach(function(item)
+		{
+			console.log("TodoAPI.jsx  item::::::::::::::::::" + item.text);
+		})
 		//......... Filter by showCompleted
 			filteredTodos = filteredTodos.filter( (todo) => {
 				//se  a prop completed == false, o elemento é mantido no array

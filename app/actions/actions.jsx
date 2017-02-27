@@ -11,7 +11,7 @@
 	{
 		return {
 			type: 'SEARCH_TEXT',
-			searchText 		
+			text: searchText 		
 		}
 	}
 	//............

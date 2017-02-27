@@ -10,7 +10,14 @@ var moment = require('moment');
 		switch(action.type)
 		{
 			case 'SEARCH_TEXT':
-				return action.searchText;
+				//console.log('SEARCH_TEXT   action.text:::'+action.text);
+				//state = action.text;
+				/*return (state)=>{
+						state = action.text;
+						return state;
+					};
+				*/	
+				return action.text;
 			default:
 				return state;	
 		}
@@ -44,7 +51,7 @@ var moment = require('moment');
 				]
 			//.........
 			case 'TOGGLE_TODO':
-				//SE ID MATCHES, TOGGLE PROP completed
+				//========================
 				return state.map((todo)=>
 					{
 						if(todo.id === action.id)
@@ -57,8 +64,13 @@ var moment = require('moment');
 						 		completed: nextCompleted,
 						 		completedAt: nextCompleted ? moment().unix():undefined
 						 	}
-						} 	 	
-					});					
+						} else {
+							return todo; //NECESSÁRIO PARA FUNCIONAR NO REDUCER,
+										//NOS FILES ORIGINAIS ESTA LINHA NÃO EXISTIA,
+										//FOI ADICIONADA NA LEC. 124, 06.36	 	
+						}				
+					});
+									
 			//.........		
 			default: 
 				return state;	
