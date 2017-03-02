@@ -16,11 +16,11 @@ describe('Reducers', ()=>
 		{
 			var action = {
 				type: 'SEARCH_TEXT',
-				text: 'Dog'	
+				searchText: 'Dog'	
 			};
 			var res = reducers.searchTextReducer(df(''), df(action));
 			//var res = reducers.searchTextReducer('', action);
-			expect(res).toEqual(action.text);
+			expect(res).toEqual(action.searchText);
 		});
 		//..........
 	});

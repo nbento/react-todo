@@ -15,10 +15,10 @@ var TodoApp 	= require('TodoApp');
 		var state_ = store.getState();	
 		console.log('New state  state_.searchText:::', state_.searchText);	
 	});
-//..........Lec. 120
-store.dispatch(actions.addTodo('Clean the yard'));
-//store.dispatch(actions.searchText('yard'));
-//store.dispatch(actions.toggleShowCompleted());
+//..........Lec. 120, DESACTIVADAS NA Lec. 125
+	//store.dispatch(actions.addTodo('Clean the yard'));
+	//store.dispatch(actions.searchText('yard'));
+	//store.dispatch(actions.toggleShowCompleted());
 //..........
 
 //Load foundation (CARREGA UM FILE CSS DIRECTA/ NUM FILE JSX(!!!))  (Lec.51 ~10:00)

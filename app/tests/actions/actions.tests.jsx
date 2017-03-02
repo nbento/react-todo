@@ -9,10 +9,10 @@ describe('Actions', ()=>
 	{
 		var action = {
 			type: 'SEARCH_TEXT',
-			text: 'Some search text'	
+			searchText: 'Some search text'	
 		};
 
-		var res = actions.searchText(action.text);
+		var res = actions.searchText(action.searchText);
 
 		expect(res).toEqual(action);
 	});

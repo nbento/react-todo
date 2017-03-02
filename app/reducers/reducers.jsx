@@ -17,7 +17,7 @@ var moment = require('moment');
 						return state;
 					};
 				*/	
-				return action.text;
+				return action.searchText;
 			default:
 				return state;	
 		}

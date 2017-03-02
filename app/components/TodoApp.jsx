@@ -8,7 +8,9 @@ var moment = require('moment');
 import TodoList from 'TodoList';      //Lec. 122 ~13.48
 import AddTodo from 'AddTodo';        //Lec. 124 (o export OBRIGA AQUI À UTILIZAÇÃO DE import)
 //var AddTodo = require('AddTodo');
-var TodoSearch = require('TodoSearch');
+//var TodoSearch = require('TodoSearch');
+import TodoSearch from 'TodoSearch'; 
+
 var TodoAPI = require('TodoAPI');
 
 var TodoApp = React.createClass(
