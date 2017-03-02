@@ -70,7 +70,14 @@ var moment = require('moment');
 										//FOI ADICIONADA NA LEC. 124, 06.36	 	
 						}				
 					});
-									
+			
+			//.........		
+			case 'ADD_TODOS':
+				//========================
+				return [
+						...state,
+						...action.todos
+				]				
 			//.........		
 			default: 
 				return state;	

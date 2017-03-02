@@ -5,21 +5,27 @@ var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
 var TodoApp 	= require('TodoApp');
 
+var TodoAPI = require('TodoAPI'); //........... Lec. 126
 //..........
 	var actions = require('actions');
 	var store = require('configureStore').configure();	
 
 	store.subscribe(()=>
 	{
-		//console.log('New state', store.getState());
-		var state_ = store.getState();	
-		console.log('New state  state_.searchText:::', state_.searchText);	
+		var state = store.getState();
+		console.log('New state', state);	
+		//........... Lec. 126
+		TodoAPI.setTodos(state.todos);
+		//console.log('New state  state.searchText:::', state.searchText);	
 	});
 //..........Lec. 120, DESACTIVADAS NA Lec. 125
 	//store.dispatch(actions.addTodo('Clean the yard'));
 	//store.dispatch(actions.searchText('yard'));
 	//store.dispatch(actions.toggleShowCompleted());
-//..........
+//..........Lec. 126
+var initialTodos = TodoAPI.getTodos();
+store.dispatch( actions.addTodos(initialTodos) );
+
 
 //Load foundation (CARREGA UM FILE CSS DIRECTA/ NUM FILE JSX(!!!))  (Lec.51 ~10:00)
 //css! »»» 'by default the require doesn't know how to load a css file'; FORMA QUE PERMITE AO REQUIRE LOADAR UM CSS  

@@ -29,6 +29,14 @@
 			text 		
 		}
 	}
+	//............Lec. 126
+	export	var addTodos = (todos)=>
+	{
+		return {
+			type: 'ADD_TODOS',
+			todos 		
+		}
+	}
 	//............Lec. 117
 	export	var toggleTodo = (id)=>
 	{

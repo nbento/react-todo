@@ -1,9 +1,11 @@
 var React = require('react');
-var {connect} = require('react-redux'); 
-var actions = require('actions'); 
-
-var uuid = require('node-uuid');
-var moment = require('moment');
+//........... DESACTIVADA NA Lec. 126, 
+//var {connect} = require('react-redux'); //........... DESACTIVADA NA Lec. 126
+//var actions = require('actions'); //........... DESACTIVADA NA Lec. 126
+//MAS
+//NO VIDEO, ESTAS 2 NÃO SÃO DESACTIVADAS
+//var uuid = require('node-uuid');//........... DESACTIVADA NA Lec. 126
+//var moment = require('moment');//........... DESACTIVADA NA Lec. 126
 
 import TodoList from 'TodoList';      //Lec. 122 ~13.48
 import AddTodo from 'AddTodo';        //Lec. 124 (o export OBRIGA AQUI À UTILIZAÇÃO DE import)
@@ -11,25 +13,30 @@ import AddTodo from 'AddTodo';        //Lec. 124 (o export OBRIGA AQUI À UTILIZ
 //var TodoSearch = require('TodoSearch');
 import TodoSearch from 'TodoSearch'; 
 
-var TodoAPI = require('TodoAPI');
+//var TodoAPI = require('TodoAPI'); //........... DESACTIVADA NA Lec. 126
 
 var TodoApp = React.createClass(
 {
-  getInitialState: function () {
+  //........... DESACTIVADA NA Lec. 126
+  //O STATE É MANTIDO/ACTUALIZADO COM REDUX,
+  //ISTO ERA ÚTIL QUANDO ESTA COMP. ENVIAVA DADOS ÀS COMP. CHILDREN
+  /*getInitialState: function () {
     return {
       showCompleted: false,
       searchText: '',
       todos: TodoAPI.getTodos()
      
     };
-  },
-  componentDidUpdate: function () 
+  },*/
+  //........... DESACTIVADA NA Lec. 126
+  /*componentDidUpdate: function () 
   {
     console.log('TodoApp  COMPONENTDIDUPDATE');
     TodoAPI.setTodos(this.state.todos);
     //TodoAPI.setTodos(this.props.todos);
-  },
-  handleAddTodo: function (text) {
+  },*/
+  //........... DESACTIVADA NA Lec. 126
+  /*handleAddTodo: function (text) {
     //console.log('TodoApp  handleAddTodo text:::'+text);
     this.setState({
       todos: [
@@ -43,31 +50,17 @@ var TodoApp = React.createClass(
         }
       ]
     });
-  },
-  handleSearch: function (showCompleted, searchText) {
+  },*/
+  //........... DESACTIVADA NA Lec. 126
+  /*handleSearch: function (showCompleted, searchText) {
     this.setState({
       showCompleted: showCompleted,
       searchText: searchText.toLowerCase()
     });
-  },
-  handleToggle: function (id) 
+  },*/
+  //........... DESACTIVADA NA Lec. 126
+  /*handleToggle: function (id) 
   {
-   //=============================== 
-   /*
-      var todosAux = this.state.todos.map(function(todo)
-      {
-        if(todo.id === id)
-        {
-          console.log("TodoApp onChangeTodo »»» todos_.id === id!!!");
-          todo.completed = valor;
-          todo.completedAt = todo.completed ? moment().unix() : undefined;
-        } 
-        return todo;
-      });
-      //......... 
-      this.setState({todos: todosAux});
-    */
-    //===============================
     var todos_ = this.state.todos;
     todos_.filter(function(todo)
     {
@@ -80,18 +73,17 @@ var TodoApp = React.createClass(
     });
 
     this.setState({todos: todos_});
-  },
-  render: function () {
-    //var {todos, showCompleted, searchText} = this.state;
-    var {todos, showCompleted, searchText, dispatch} = this.props;
-    var {searchText} = this.props;
-    console.log('TodoApp  render  searchText:::'+searchText);
-    console.log('TodoApp  render!!!!!!!!!!!!!!!!!!!');
-    var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
-    //dispatch(actions.)
-    //<TodoSearch onSearch={this.handleSearch}/>
-    //<TodoList todos={filteredTodos}  onToggle={this.handleToggle} />
-    //<AddTodo onAddTodo={this.handleAddTodo}/>  
+  },*/
+  render: function () 
+  {
+    //........... DESACTIVADA NA Lec. 126
+    //var {todos, showCompleted, searchText, dispatch} = this.props;
+    //var {searchText} = this.props;
+    //var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+    //ISTO ESTAVA ANTES DE REDUX;
+      //<TodoSearch onSearch={this.handleSearch}/>
+      //<TodoList todos={filteredTodos}  onToggle={this.handleToggle} />
+      //<AddTodo onAddTodo={this.handleAddTodo}/>  
     return (
       <div>
         <h1 className="page-title">Todo App</h1>
@@ -110,9 +102,9 @@ var TodoApp = React.createClass(
   }
 });
 //..............
-//module.exports = TodoApp;
+module.exports = TodoApp;
 //module.exports = connect()(TodoApp);
-module.exports = connect(
+/*module.exports = connect(
   (state) => {
     return {
       todos: state.todos,
@@ -120,4 +112,4 @@ module.exports = connect(
       searchText: state.searchText
     };
   }
-)(TodoApp);
+)(TodoApp);*/
