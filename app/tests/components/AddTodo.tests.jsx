@@ -4,6 +4,9 @@ var expect = require('expect');
 var $ = require('jQuery'); 	//dependente do que foi definido no file webpack.config.js
 var TestUtils = require('react-addons-test-utils');
 
+//...............Lec. 134 COM FIREBASE
+import * as actions from 'actions';
+
 //var AddTodo = require('AddTodo');
 var {AddTodo} = require('AddTodo'); 		//Lec. 124
 
@@ -14,13 +17,28 @@ describe('AddTodo', () => {
 	it('should exist', () => {
 		expect(AddTodo).toExist();
 	});
-	//...............Alt. na Lec. 124
+	//...............Alt. na Lec. 124/134, ANTES DE FIREBASE
+	/*
 	it('should dispatch ADD_TODO when valid todo text', () => {
 		var todoText = 'Check mail';
 		var action = {
 			type: 'ADD_TODO',
 			text: todoText
 		}
+		var spy = expect.createSpy();
+		var addTodo = TestUtils.renderIntoDocument(<AddTodo dispatch={spy}/>);
+		var $el = $(ReactDOM.findDOMNode(addTodo));
+
+		addTodo.refs.todoText.value = todoText;
+		TestUtils.Simulate.submit($el.find('form')[0]);
+
+		expect(spy).toHaveBeenCalledWith(action);
+	});*/
+	//...............Lec. 134 COM FIREBASE
+	it('should dispatch ADD_TODO when valid todo text', () => {
+		var todoText = 'Check mail';
+		var action = actions.startAddTodo(todoText);
+
 		var spy = expect.createSpy();
 		var addTodo = TestUtils.renderIntoDocument(<AddTodo dispatch={spy}/>);
 		var $el = $(ReactDOM.findDOMNode(addTodo));

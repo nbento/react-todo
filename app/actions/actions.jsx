@@ -1,4 +1,8 @@
 //............
+//Lec. 133
+import moment from 'moment';
+import firebase, {firebaseRef} from 'app/firebase/index'; //ou só 'app/firebase/'
+//............
 //Lec. 117
 //............
 //var axios = require('axios');
@@ -22,20 +26,64 @@
 		}
 	}
 	//............Lec. 117
-	export	var addTodo = (text)=>
+	export	var addTodo = (todo)=>
 	{
 		return {
 			type: 'ADD_TODO',
-			text 		
+			todo		
 		}
 	}
+	//............Lec. 133 04.55 (RETURN AN FUNCTION, NOT AN OBJECT)
+	//USADA EM ADDTODO.JSX
+	export var startAddTodo = (text)=>{
+		console.log('STARTADDTODO!!!!!!!!!!!!!!!!!!!');
+		return (dispatch, getState)=>{
+			var todo = {
+				//id: 		uuid(), 		//É DADO PELO FIREBASE
+				text, 						//action.text,  		
+				completed: 	false,
+				createdAt: moment().unix(),  	
+				completedAt: null 			//ALT. PARA FIREBASE   //undefined  		
+			}
+			var todoRef = firebaseRef.child('todos').push(todo);
+
+			return todoRef.then(()=>{
+					console.log('THEN OK  todoRef.key:::'+todoRef.key);
+					dispatch(addTodo({
+						...todo,
+						id: todoRef.key
+					}))
+				
+			})//....then
+		}//...return (dispatch, getState)
+	}
 	//............Lec. 126
-	export	var addTodos = (todos)=>
+	export var addTodos = (todos)=>
 	{
+		console.log('addTodos func.   todos:::' + todos);
 		return {
 			type: 'ADD_TODOS',
 			todos 		
 		}
+	}
+	//............
+	export var addTodosInit = ()=>{
+			return (dispatch, getState)=>{
+
+				var todoRef = firebaseRef.child('todos').once('value');
+				return todoRef.then((snapshot)=>{
+
+
+						/*var todos = snapshot.val();
+						todos.forEach(function(item){
+							console.log(".once SUCCESS  item.key:::", item.key); 
+						})
+						//console.log(".once SUCCESS  database:::", {...todos});  //[object Object]
+						//dispatch(addTodos({...todos}));
+						*/
+	
+				})
+			}		
 	}
 	//............Lec. 117
 	export	var toggleTodo = (id)=>

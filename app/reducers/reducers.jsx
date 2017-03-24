@@ -36,9 +36,13 @@ var moment = require('moment');
 	export var todosReducer = (state = [], action)=> {
 		switch (action.type)
 		{
+			
 			case 'ADD_TODO':
+				console.log('todosReducer ADD_TODO.................action.todo:::', action.todo);
 				return [
 						...state,
+						action.todo  // LEC.133
+						/*DESACTIVADO LEC.133
 						{
 							//O ÚNICO QUE É ADICIONADO PELA ACTION 'ADD_TODO', É O text,
 							//OS RESTANTES, NÃO PRECISAM DE PARAMETERS
@@ -47,7 +51,7 @@ var moment = require('moment');
 							completed: 	false,
 							createdAt: moment().unix(),  	//Lec. 102
  							completedAt: undefined  		//Lec. 102
-						}
+						}*/
 				]
 			//.........
 			case 'TOGGLE_TODO':
@@ -74,9 +78,10 @@ var moment = require('moment');
 			//.........		
 			case 'ADD_TODOS':
 				//========================
+				console.log('ADD_TODOS   action.todos:::' + action.todos);
 				return [
 						...state,
-						...action.todos
+						todos
 				]				
 			//.........		
 			default: 

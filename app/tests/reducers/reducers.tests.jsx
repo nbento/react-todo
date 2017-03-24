@@ -42,8 +42,10 @@ describe('Reducers', ()=>
 		
 	});
 	//.......... 
+
 	describe('todosReducer', ()=>
 	{
+		/*//..........ANTERIOR À LEC. 134
 		it('Should add new todo---------------------', ()=>
 		{
 			var action = {
@@ -62,6 +64,26 @@ describe('Reducers', ()=>
 			var res = reducers.todosReducer(df([]), df(action));
 			expect(res.length).toEqual(1);
 			expect(res[0].text).toEqual(action.text);
+			//...
+		});
+		*/
+		//..........UPDATE NA LEC. 134
+		it('Should add new todo---------------------', ()=>
+		{
+			var action = {
+				type: 'ADD_TODO', 		
+				todo: {		
+					id: 'abc123', 			//uuid(),
+					text: "SOMETHING TO DO", 	//action.text,
+					completed: 	false,
+					createdAt: '92384275' 	//moment().unix(),  	//Lec. 102
+					//completedAt: undefined  	//Lec. 102
+				}
+			};
+			//...
+			var res = reducers.todosReducer(df([]), df(action));
+			expect(res.length).toEqual(1);
+			expect(res[0]).toEqual(action.todo);
 			//...
 		});
 		//..........
@@ -90,8 +112,8 @@ describe('Reducers', ()=>
 			//expect(res[0].completedAt).toEqual(undefined);
  			//......
 		});
-		//..........
-		it('Should add existing todos ------------------------------------', ()=>
+		//..........dá erro na lec. 134
+		/*it('Should add existing todos ------------------------------------', ()=>
 		{
 			//......
 			var todos = [{
@@ -99,7 +121,7 @@ describe('Reducers', ()=>
 				text:'anything',
 				completed: false,
 				completedAt: undefined,
-				createdAt: 330000
+				createdAt: 33000
 			}];
 			//......
 			var action = {
@@ -112,7 +134,25 @@ describe('Reducers', ()=>
 			expect(res.length).toEqual(1);
 			expect(res[0]).toEqual(todos[0]);
  			//......
-		});
+		});*/
+		//...................DOS FILES ORIGINAIS LEC.133, mas também dá erro
+		it('should add existing todos', () => {
+	      var todos = [{
+	        id: '111',
+	        text: 'anything',
+	        completed: false,
+	        completedAt: undefined,
+	        createdAt: 33000
+	      }];
+	      var action = {
+	        type: 'ADD_TODOS',
+	        todos
+	      };
+	      var res = reducers.todosReducer(df([]), df(action));
+
+	      expect(res.length).toEqual(1);
+	      expect(res[0]).toEqual(todos[0]);
+	    });
 	});
 	//..........
 

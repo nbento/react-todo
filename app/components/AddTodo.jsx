@@ -18,7 +18,9 @@ export var AddTodo = React.createClass({
 		{
 			this.refs.todoText.value='';
 			//this.props.onAddTodo(todoText2);
-			dispatch(actions.addTodo(todoText2));
+			//DESACTIVADA NA LEC. 133  
+			//dispatch(actions.addTodo(todoText2));
+			dispatch(actions.startAddTodo(todoText2));
 		} else {
 			//DEVOLVE O FOCO DE VOLTA AO INPUTTEXT FIELD
 			this.refs.todoText.focus();

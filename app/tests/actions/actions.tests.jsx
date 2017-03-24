@@ -1,6 +1,15 @@
+//.......... Lec. 134
+	import configureMockStore from 'redux-mock-store';
+	import thunk from 'redux-thunk';
+
 //.......... Lec. 117
 var expect = require('expect');
 var actions = require('actions');
+
+//.......... Lec. 134
+//recebe 1 parameter, um array 'midleware'
+var createMockStore = configureMockStore([thunk]);
+
 //.......... 
 describe('Actions', ()=>
 {
@@ -16,7 +25,8 @@ describe('Actions', ()=>
 
 		expect(res).toEqual(action);
 	});
-	//.......... 
+	//..........ANTES DA LEC. 134
+	/* 
 	it('Should generate add todo action', ()=>
 	{
 		var action = {
@@ -28,6 +38,48 @@ describe('Actions', ()=>
 
 		expect(res).toEqual(action);
 	});
+	*/
+	//..........LEC. 134 COM FIREBASE
+	it('Should generate add todo action', ()=>
+	{
+		var action = {
+			type: 'ADD_TODO',
+			todo: {		
+					id: 'abc123', 			//uuid(),
+					text: "SOMETHING TO DO", 	//action.text,
+					completed: 	false,
+					createdAt: '0' 	//moment().unix(),  	//Lec. 102
+					//completedAt: undefined  	//Lec. 102
+				}	 		
+		};
+
+		var res = actions.addTodo(action.todo);
+
+		expect(res).toEqual(action);
+	});
+	//..........LEC. 134 COM FIREBASE
+	//foi instalado um module para poder criar este teste, redux-mock-store,
+	//porque o código a testar tem uma componente ASYNC;
+	it('Should create todo and dispatch ADD_TODO', (done)=>{
+		const store = createMockStore({});
+		const todoText = 'My todo item';
+
+		store.dispatch(actions.startAddTodo(todoText)).then(()=>{
+			const actions = store.getActions();
+			expect(actions[0]).toInclude({
+				type: 'ADD_TODO'
+			});
+
+			expect(actions[0].todo).toInclude({
+				text: todoText
+			});
+
+			done();
+
+		}).catch(done);
+
+	});//...it('Should create todo and dispatc...
+	
 	//..........Lec. 126  
 	it('Should generate add todos action object', ()=>
 	{

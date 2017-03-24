@@ -6,6 +6,9 @@ var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 var TodoApp 	= require('TodoApp');
 
 var TodoAPI = require('TodoAPI'); //........... Lec. 126
+
+//import './../playground/firebase/index';  //.......... Lec. 127  DESACTIVADA NA LEC. 133
+
 //..........
 	var actions = require('actions');
 	var store = require('configureStore').configure();	
@@ -13,9 +16,9 @@ var TodoAPI = require('TodoAPI'); //........... Lec. 126
 	store.subscribe(()=>
 	{
 		var state = store.getState();
-		console.log('New state', state);	
+		console.log('New state.todos', state.todos);	
 		//........... Lec. 126
-		TodoAPI.setTodos(state.todos);
+		//TodoAPI.setTodos(state.todos);
 		//console.log('New state  state.searchText:::', state.searchText);	
 	});
 //..........Lec. 120, DESACTIVADAS NA Lec. 125
@@ -23,8 +26,10 @@ var TodoAPI = require('TodoAPI'); //........... Lec. 126
 	//store.dispatch(actions.searchText('yard'));
 	//store.dispatch(actions.toggleShowCompleted());
 //..........Lec. 126
-var initialTodos = TodoAPI.getTodos();
-store.dispatch( actions.addTodos(initialTodos) );
+//var initialTodos = TodoAPI.getTodos();
+//store.dispatch( actions.addTodos(initialTodos) );
+
+//store.dispatch( actions.addTodosInit() );
 
 
 //Load foundation (CARREGA UM FILE CSS DIRECTA/ NUM FILE JSX(!!!))  (Lec.51 ~10:00)
