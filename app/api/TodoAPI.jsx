@@ -51,10 +51,10 @@ module.exports = {
 	{
 		var filteredTodos = todos;
 		//......... 
-		filteredTodos.forEach(function(item)
-		{
-			console.log("TodoAPI.jsx  item::::::::::::::::::" + item.text);
-		})
+		//filteredTodos.forEach(function(item)
+		//{
+		//	console.log("TodoAPI.jsx  item::::::::::::::::::" + item.text);
+		//})
 		//......... Filter by showCompleted
 			filteredTodos = filteredTodos.filter( (todo) => {
 				//se  a prop completed == false, o elemento é mantido no array

@@ -53,16 +53,36 @@ var moment = require('moment');
  							completedAt: undefined  		//Lec. 102
 						}*/
 				]
-			//.........
-			case 'TOGGLE_TODO':
+			//......... LEC. 135
+			case 'UPDATE_TODO':
 				//========================
 				return state.map((todo)=>
 					{
 						if(todo.id === action.id)
 						{
+						 	return {
+						 		...todo,
+						 		...action.updates
+						 	}
+						} else {
+							return todo; 
+						}				
+					});
+				
+			//.........DESACTIVADA NA LEC. 135, substituida pela UPDATE_TODO
+			/*case 'TOGGLE_TODO':
+				//========================
+				return state.map((todo)=>
+					{
+						console.log('todosReducer todo.id:::', todo.id);
+						console.log('todosReducer action.id:::', action.id);
+						console.log('_________________________');
+
+						if(todo.id === action.id)
+						{
 						 	var nextCompleted = !todo.completed;
 						 	//todo.completed = !todo.completed;
-
+						 	console.log('todo.id === action.id text:::', todo.text);
 						 	return {
 						 		...todo,
 						 		completed: nextCompleted,
@@ -74,14 +94,14 @@ var moment = require('moment');
 										//FOI ADICIONADA NA LEC. 124, 06.36	 	
 						}				
 					});
-			
+			*/
 			//.........		
 			case 'ADD_TODOS':
 				//========================
-				console.log('ADD_TODOS   action.todos:::' + action.todos);
+				//console.log('ADD_TODOS   action.todos:::' + action.todos);
 				return [
 						...state,
-						todos
+						...action.todos
 				]				
 			//.........		
 			default: 

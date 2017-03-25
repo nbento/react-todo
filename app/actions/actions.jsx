@@ -60,7 +60,7 @@ import firebase, {firebaseRef} from 'app/firebase/index'; //ou só 'app/firebase
 	//............Lec. 126
 	export var addTodos = (todos)=>
 	{
-		console.log('addTodos func.   todos:::' + todos);
+		//console.log('addTodos func.    todos:::' + todos);
 		return {
 			type: 'ADD_TODOS',
 			todos 		
@@ -73,25 +73,61 @@ import firebase, {firebaseRef} from 'app/firebase/index'; //ou só 'app/firebase
 				var todoRef = firebaseRef.child('todos').once('value');
 				return todoRef.then((snapshot)=>{
 
-
-						/*var todos = snapshot.val();
-						todos.forEach(function(item){
-							console.log(".once SUCCESS  item.key:::", item.key); 
-						})
-						//console.log(".once SUCCESS  database:::", {...todos});  //[object Object]
-						//dispatch(addTodos({...todos}));
-						*/
-	
+						var elem;
+						var todosArrayTemp = [];
+						var todos = snapshot.val();
+						var objKeys = Object.keys(todos);
+						//console.log("objKeys TOTAL:::" + objKeys.length); 	
+						objKeys.forEach( function(key, index) 
+						{
+							//console.log(" | prop index:::" + index + " | key:::" + key + " | value:::" +todos[key]);
+							elem = {	id:key,
+										...todos[key]
+									}
+							todosArrayTemp.push(elem);
+						});
+						//......
+						dispatch(addTodos(todosArrayTemp));
 				})
 			}		
 	}
-	//............Lec. 117
-	export	var toggleTodo = (id)=>
+	//............Lec. 117; DESACTIVADA NA LEC. 135
+	/*export	var toggleTodo = (id)=>
 	{
 		return {
 			type: 'TOGGLE_TODO',
 			id 		
 		}
+	}*/
+	//............ACTIVADA NA LEC. 135
+	export	var updateTodo = (id, updates)=>
+	{
+		return {
+			type: 'UPDATE_TODO',
+			id,
+			updates 		
+		}
+	}
+	//............Lec. 135
+	export	var startToggleTodo = (id, completed)=>{
+		console.log('TOGGLETODO!!!!!!!!!!!!!!!!!!!');
+		return (dispatch, getState)=>{
+			
+			//var todoRef = firebaseRef.child('todos').child(id).update({'completed':!completed});
+			//var todoRef = firebaseRef.child('todos/'+id).update({'completed':!completed});
+			var todoRef = firebaseRef.child(`todos/${id}`); //.update({'completed':!completed});
+			var updates = {
+				completed: completed,
+				completedAt: completed  ?  moment().unix()  :  null
+			}
+			
+			return todoRef.update(updates).then(()=>{
+					console.log('THEN OK  toggleTodoFirebase id:::' + id);
+					//dispatch(toggleTodo(id));
+					dispatch(updateTodo(id, updates));
+				
+			})//....then
+		}//...return (dispatch, getState)
 	}
 	//............ ACTION GENERATORS Lec. 115
 	//............ 
