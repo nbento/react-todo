@@ -13,7 +13,9 @@ var TestUtils = require('react-addons-test-utils');
 var expect = require('expect');
 var $ = require('jquery'); 	//dependente do que foi definido no file webpack.config.js
 
-var {Todo} = require('Todo');
+import * as actions from 'actions';   //Lec. 136
+import {Todo} from 'Todo'; 			//ES6
+//var {Todo} = require('Todo'); 	//ES5
 //import ConnectedTodo, {Todo} from 'Todo';
 //.......... Permitir agrupar vários testes e denominá-los;
 
@@ -72,7 +74,30 @@ describe('Todo', () => {
 			      id: todoData.id
 			    });
 		});
-	*/		 
+	*/ 	
+	//=========================================================
+	//Lec. 136  - NÃO FUNCIONA
+  //E COM O CÓDIGO ORIGINAL TAMBÉM FALHA;
+	//Error: spy was never called with [ [Function] ]...
+	/*	it('+++++++should dispatch TOGGLE_TODO action on click************************', () => {
+			    var todoData = {
+			      id: 199,
+			      text: 'Write todo.test.jsx test',
+			      completed: true
+			    };
+
+			    var action = actions.startToggleTodo(todoData.id, !todoData.completed);
+
+
+			    var spy = expect.createSpy();
+			    var todo = TestUtils.renderIntoDocument(<Todo {...todoData} dispatch={spy}/>);
+			    var $el = $(ReactDOM.findDOMNode(todo));
+
+			    TestUtils.Simulate.click($el[0]);
+
+			    expect(spy).toHaveBeenCalledWith(action);
+		});
+	*/	  		 
 	//=========================================================
 	
 	

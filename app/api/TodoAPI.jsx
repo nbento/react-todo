@@ -2,50 +2,6 @@
 var $ = require('jquery');
 
 module.exports = {
-	setTodos: function(todos)
-	{
-		//if it is a array, set value
-		if($.isArray(todos))
-		{
-			//JSON.stringify(array) //takes an array, converts to string,
-			//Utilizado neste caso, porque o 2º param. tem de ser também string;
-			localStorage.setItem('todos', JSON.stringify(todos));
-
-			return todos;
-		}
-		//if it is not an array, do nothing
-	},
-	//..........
-	getTodos: function()
-	{
-		//Fetch values
-		//if it is an array
-		//case true, get values
-		//..........
-		var stringTodos = localStorage.getItem('todos');
-		var todos = [];
-		//console.log('TodoAPI  stringTodos:::' + stringTodos);
-		//.....
-		// JSON.parse, convert string to array (reverso do JSON.stringify),
-		//mas pode dar erros, por isso usa-se try/catch
-		try {
-			//ERROR    todos.JSON.parse(stringTodos);
-			todos = JSON.parse(stringTodos);
-			//console.log('TodoAPI  todos:::' + todos);
-		} catch (e) {
-
-		}
-		//.....
-		/*if($.isArray(todos))
-			{
-				return todos;
-			}else{
-				return [];
-			}
-		*/
-		//..... ou:
-		return $.isArray(todos)  ?  todos  :  [];
-	},
 	//..........Usada na TodoApp.jsx, render
 	filterTodos: function(todos, showCompleted, searchText)
 	{
@@ -95,7 +51,57 @@ module.exports = {
 				}
 			}); 
 			*/
+		//......... 	
 		return filteredTodos;
 	}
+	//...... DESACTIVADAS NA LEC. 137
+	/*
+	//..........
+	setTodos: function(todos)
+	{
+		//if it is a array, set value
+		if($.isArray(todos))
+		{
+			//JSON.stringify(array) //takes an array, converts to string,
+			//Utilizado neste caso, porque o 2º param. tem de ser também string;
+			localStorage.setItem('todos', JSON.stringify(todos));
+
+			return todos;
+		}
+		//if it is not an array, do nothing
+	},
+	//..........
+	getTodos: function()
+	{
+		//Fetch values
+		//if it is an array
+		//case true, get values
+		//..........
+		var stringTodos = localStorage.getItem('todos');
+		var todos = [];
+		//console.log('TodoAPI  stringTodos:::' + stringTodos);
+		//.....
+		// JSON.parse, convert string to array (reverso do JSON.stringify),
+		//mas pode dar erros, por isso usa-se try/catch
+		try {
+			//ERROR    todos.JSON.parse(stringTodos);
+			todos = JSON.parse(stringTodos);
+			//console.log('TodoAPI  todos:::' + todos);
+		} catch (e) {
+
+		}
+		//.....
+		//if($.isArray(todos))
+			//	{
+			//		return todos;
+			//	}else{
+			//		return [];
+			//	}
+			//
+		//..... ou:
+		return $.isArray(todos)  ?  todos  :  [];
+	},
+	*/
+	
 	//..........
 };

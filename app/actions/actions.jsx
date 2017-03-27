@@ -66,18 +66,19 @@ import firebase, {firebaseRef} from 'app/firebase/index'; //ou só 'app/firebase
 			todos 		
 		}
 	}
-	//............
-	export var addTodosInit = ()=>{
+	//............Lec. 137, FETCH TODOS custom code
+	/*export var addTodosInit = ()=>{
 			return (dispatch, getState)=>{
 
 				var todoRef = firebaseRef.child('todos').once('value');
 				return todoRef.then((snapshot)=>{
-
+						//......
 						var elem;
 						var todosArrayTemp = [];
 						var todos = snapshot.val();
 						var objKeys = Object.keys(todos);
-						//console.log("objKeys TOTAL:::" + objKeys.length); 	
+						//console.log("objKeys TOTAL:::" + objKeys.length);
+						//...... 	
 						objKeys.forEach( function(key, index) 
 						{
 							//console.log(" | prop index:::" + index + " | key:::" + key + " | value:::" +todos[key]);
@@ -90,6 +91,35 @@ import firebase, {firebaseRef} from 'app/firebase/index'; //ou só 'app/firebase
 						dispatch(addTodos(todosArrayTemp));
 				})
 			}		
+	}*/
+	//............Lec. 137, FETCH TODOS COMO ESTÁ NO VIDEO
+	export var startAddTodos = ()=>{
+		return (dispatch, getState)=>{
+			var todoRef = firebaseRef.child('todos');
+			
+			return todoRef.once('value').then((snapshot)=>{
+				//......
+				var todos = snapshot.val()  ||  {};
+				//OS DADOS DO FIREBASE PARA OS TODOS, ESTÃO NO FORMATO:
+					//KsfwedsFrt: {
+					//	completed: false,
+					//	createAt: 1235422323,
+					//	text: "some text..."
+					//},
+					//FrjkaWeds: ...
+				//......	
+				var parsedTodos = [];
+				//......
+				Object.keys(todos).forEach( (todoId) =>{
+						//......
+ 						parsedTodos.push({ 	id:todoId,
+											...todos[todoId]
+										});
+				});
+				//......
+				dispatch(addTodos(parsedTodos));	
+			})
+		}
 	}
 	//............Lec. 117; DESACTIVADA NA LEC. 135
 	/*export	var toggleTodo = (id)=>

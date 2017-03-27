@@ -86,11 +86,11 @@ describe('Reducers', ()=>
 			expect(res[0]).toEqual(action.todo);
 			//...
 		});
-		//..........
+		//..........DESACTIVADA NA LEC 136
 		//defined todos array with realistic item
 		//generate action
 		//call reducer and assert 
-		it('Should toggle todo ------------------------------------', ()=>
+		/*it('Should toggle todo ------------------------------------', ()=>
 		{
 			//......
 			var todos = [{
@@ -110,6 +110,36 @@ describe('Reducers', ()=>
 			
 			expect(res[0].completed).toEqual(false);
 			//expect(res[0].completedAt).toEqual(undefined);
+ 			//......
+		});*/
+		//..........LEC 136
+		it('Should update todo ------------------------------------', ()=>
+		{
+			//......
+			var todos = [{
+ 					id: 		'123', 		//uuid(),
+ 					text: "Something", 		//action.text,  		//
+					completed: 	true,
+ 					createdAt: '123', //moment().unix(),  	//Lec. 102
+					completedAt: 125  
+			}];
+			//......
+			var updates = {
+				completed: false,
+				completedAt: null	
+			};
+			//......
+			var action = {
+				type: 'UPDATE_TODO',
+ 				id: todos[0].id,
+ 				updates	
+			};
+			//......
+			var res = reducers.todosReducer(df(todos), df(action));
+			
+			expect(res[0].completed).toEqual(updates.completed);
+			expect(res[0].completedAt).toEqual(updates.completedAt);
+			expect(res[0].text).toEqual(todos[0].text);
  			//......
 		});
 		//..........dá erro na lec. 134

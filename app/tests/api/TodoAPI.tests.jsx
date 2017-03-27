@@ -14,8 +14,8 @@ describe("TodoAPI", () => {
 	it("***************TodoAPI it should exist", () => {
 		expect(TodoAPI).toExist();
 	});	
-	//.............
-	describe("++++++++++++++++setTodos", () => {
+	//.............DESACTIVADA NA LEC. 137 
+	/*describe("++++++++++++++++setTodos", () => {
 			//.............
 			it('should set valid todos array', () => {
 				var todos = [{
@@ -57,7 +57,8 @@ describe("TodoAPI", () => {
 			expect(actualTodos).toEqual(todos);	
 		});
 		//.............	
-	});	
+	});
+	*/	
 	//.............Lec. 99
 	describe("filterTodos", () => {
 		//.............

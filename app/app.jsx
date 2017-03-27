@@ -13,23 +13,27 @@ var TodoAPI = require('TodoAPI'); //........... Lec. 126
 	var actions = require('actions');
 	var store = require('configureStore').configure();	
 
-	store.subscribe(()=>
-	{
-		var state = store.getState();
-		//console.log('New state.todos', state.todos);	
-		//........... Lec. 126
-		//TodoAPI.setTodos(state.todos);
-		//console.log('New state  state.searchText:::', state.searchText);	
-	});
+	//...... DESACTIVADA NA LEC. 137
+	//store.subscribe(()=>
+	//{
+	//	var state = store.getState();
+	//	//console.log('New state.todos', state.todos);	
+	//	//........... Lec. 126
+	//	//TodoAPI.setTodos(state.todos);
+	//	//console.log('New state  state.searchText:::', state.searchText);	
+	//});
 //..........Lec. 120, DESACTIVADAS NA Lec. 125
 	//store.dispatch(actions.addTodo('Clean the yard'));
 	//store.dispatch(actions.searchText('yard'));
 	//store.dispatch(actions.toggleShowCompleted());
-//..........Lec. 126
+	
+//..........Lec. 126  //...... DESACTIVADA NA LEC. 137
+//...... SERVIA PARA OBTER INFO DA LOCALSTORAGE E ACTUALIZAR O STATE
 //var initialTodos = TodoAPI.getTodos();
 //store.dispatch( actions.addTodos(initialTodos) ); 
 
-// store.dispatch( actions.addTodosInit() );
+//......LEC. 137
+store.dispatch( actions.startAddTodos() );
 
 
 //Load foundation (CARREGA UM FILE CSS DIRECTA/ NUM FILE JSX(!!!))  (Lec.51 ~10:00)

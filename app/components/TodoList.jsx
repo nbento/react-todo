@@ -16,14 +16,25 @@ export var TodoList = React.createClass(
         var renderTodos = () => 
         {
           //console.log('TODOS.LENGTH:::'+ todos.length);
-          if (todos.length === 0) 
+          //......
+          /*var filteredTodosNotCompleted = todos.filter( (todo) => {
+            //se  a prop completed == false, o elemento é mantido no array
+            return !todo.completed;
+          });
+          */
+          //console.log('TODOS  filteredTodosNotCompleted:::'+ filteredTodosNotCompleted.length);
+          //console.log('TODOS  todos.length:::'+ todos.length);
+          //......
+          var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+          
+          if ( filteredTodos.length === 0 ) 
           {
             return (
               <p className="container__message">Nothing To Do</p>
             );
           }
-
-          return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
+          //......
+          return filteredTodos.map((todo)=> {
             //console.log('TODO.ID:::'+todo.id);
             return (
               //<Todo key={todo.id} {...todo} onToggle={this.props.onToggle} />

@@ -4,6 +4,9 @@
 
 //.......... Lec. 117
 var expect = require('expect');
+
+//...... Lec. ~136
+import firebase, {firebaseRef} from 'app/firebase/';
 var actions = require('actions');
 
 //.......... Lec. 134
@@ -111,8 +114,8 @@ describe('Actions', ()=>
 
 		expect(res).toEqual(action);
 	});
-	//..........
-	it('Should generate toggle  todo action', ()=>
+	//..........DESACTIVADA NA Lec. 136
+	/*it('Should generate toggle  todo action', ()=>
 	{
 		var action = {
 			type: 'TOGGLE_TODO',
@@ -120,6 +123,19 @@ describe('Actions', ()=>
 		};
 
 		var res = actions.toggleTodo(action.id);
+
+		expect(res).toEqual(action);
+	});*/
+	//..........Lec. 136 
+	it('Should generate UPDATE  todo action', ()=>
+	{
+		var action = {
+			type: 'UPDATE_TODO',
+			id: '123',
+			updates: {completed: false}	 		
+		};
+
+		var res = actions.updateTodo(action.id, action.updates);
 
 		expect(res).toEqual(action);
 	});
@@ -133,5 +149,72 @@ describe('Actions', ()=>
 
 		    expect(res).toEqual(action);
 		  });*/ 
+	//..........
+
+	//..........Lec. 136, alterada na Lec. 138 
+	describe('TESTS WITH FIREBASE TODOS', ()=>{
+		var testTodoRef;
+
+		beforeEach((done)=>{
+			var todosRef = firebaseRef.child('todos');
+			//CADA TESTE INICIA COM A DATABASE EMPTY;
+			todosRef.remove().then(()=>{
+				testTodoRef = firebaseRef.child('todos').push();
+				
+				return testTodoRef.set({
+					text: 'Something to do',
+					completed: false,
+					createdAt: 23453453
+				})
+			})
+			.then( () => done() )
+			.catch(done);
+		});
+
+		afterEach((done)=>{
+			testTodoRef.remove().then(()=> done());
+		})
+
+		//...... CODIGO COPIADO DO ORIGINAL, LEC. 138...
+		it('should toggle todo and dispatch UPDATE_TODO action', (done) => {
+		      const store = createMockStore({});
+		      const action = actions.startToggleTodo(testTodoRef.key, true);
+
+		      store.dispatch(action).then(() => {
+		        const mockActions = store.getActions();
+
+		        expect(mockActions[0]).toInclude({
+		          type: 'UPDATE_TODO',
+		          id: testTodoRef.key
+		        });
+		        expect(mockActions[0].updates).toInclude({
+		          completed: true
+		        });
+		        expect(mockActions[0].updates.completedAt).toExist();
+
+		        done();
+		      }, done);
+		});
+
+		//...... Lec. 138
+		it('should populate todos and dispatch ADD_TODOS @@@@@@@@@@@@@@@@@@@@@@@@', (done) => {
+			const store = createMockStore({});
+			const action = actions.startAddTodos();
+
+			store.dispatch(action).then(()=>{
+				const mockActions = store.getActions();
+
+				expect(mockActions[0].type).toEqual('ADD_TODOS');
+				expect(mockActions[0].todos.length).toEqual(1);
+				expect(mockActions[0].todos[0].text).toEqual('Something to do');
+
+				done();
+
+			}, done);
+		});
+
+		//...... 
+
+	});	
 	//.......... 
 });//...describe
