@@ -2,6 +2,9 @@ var webpack = require('webpack'); 	//alteração para Foundation
 //var Lec. 83, alt. para Foundation SASS
 var path = require('path'); 		//path »»» built in to node, no adtional instalation required
 
+//...... Lec. 139
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';  //'production'
+
 module.exports = {
 	//entry: './app/app.jsx',
 	entry:  [ 	//alteração para Foundation: several entries
@@ -22,6 +25,11 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			'$': 'jquery',
 			'jQuery': 'jquery'
+		}),
+		new webpack.optimize.UglifyJsPlugin({ 		//Lec. 139 OPTIMIZE WEBPACK
+			compressor: {
+				warnings: false
+			}
 		})
 	],	
 	output: {
@@ -62,5 +70,6 @@ module.exports = {
 			path.resolve(__dirname, './node_modules/foundation-sites/scss')
 		]	
 	},	
-	devtool: 'cheap-module-eval-source-map'  //Source Maps (debugging)
+	//...... ALT. LEC. 139
+	devtool: process.env.NODE_ENV === 'production'  ?  undefined  :  'cheap-module-eval-source-map'      //Source Maps (debugging)
 };	
