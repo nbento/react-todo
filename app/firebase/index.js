@@ -34,7 +34,7 @@ try {
 					databaseURL: 	process.env.DATABASE_URL,
 					storageBucket: 	process.env.STORAGE_BUCKET
 				};*/
-	console.log("....................FIREBASE INDEX   process.env.NODE_ENV:::"+process.env.NODE_ENV);			
+	//console.log("....................FIREBASE INDEX   process.env.NODE_ENV:::"+process.env.NODE_ENV);			
 	//console.log("FIREBASE INDEX   process.env.API_KEY:::"+process.env.API_KEY);
 	var config = {
 				    apiKey: 		process.env.API_KEY, 		//"AIzaSyCZTMqcEFasgE4hkApCZoEhKljXTulqbGU", 				
@@ -48,6 +48,9 @@ try {
 }catch(e){
 
 }	
+//================= Lec. 143  
+//githubProvider » UTILIZADO EM ACTIONS.JSX
+export var githubProvider = new firebase.auth.GithubAuthProvider();
 //================= 
 export var firebaseRef = firebase.database().ref();
 export default firebase;

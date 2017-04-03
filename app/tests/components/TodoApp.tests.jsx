@@ -6,7 +6,8 @@ var expect = require('expect');
 var $ = require('jQuery'); 	//dependente do que foi definido no file webpack.config.js
 
 var configureStore = require('configureStore'); //..............Lec. 122
-var TodoApp  = require('TodoApp'); 
+import {TodoApp} from 'TodoApp'; 	//......Lec.143
+//var TodoApp  = require('TodoApp'); 
 //var TodoList = require('TodoList'); 	//..............Lec. 122
 import TodoList from 'TodoList';  		//Lec. 122 ~14.17
 

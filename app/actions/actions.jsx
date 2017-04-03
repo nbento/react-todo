@@ -1,7 +1,8 @@
 //............
 //Lec. 133
 import moment from 'moment';
-import firebase, {firebaseRef} from 'app/firebase/index'; //ou só 'app/firebase/'
+//...... githubProvider ADICIONADO NA LEC. 143, ESTÁ NA APP/FIREBASE/INDEX.JS
+import firebase, {firebaseRef, githubProvider} from 'app/firebase/index'; //ou só 'app/firebase/'
 //............
 //Lec. 117
 //............
@@ -161,6 +162,32 @@ import firebase, {firebaseRef} from 'app/firebase/index'; //ou só 'app/firebase
 			})//....then
 		}//...return (dispatch, getState)
 	}
+	//............Lec. 143
+	export var startLogin = ()=>{
+		return (dispatch, getState)=>{
+			console.log("++++++++++++++++++++++ Auth worked!");
+			//......auth() DEVOLVE VÁRIAS FUNCS. COMO RESULT...
+			//...... githubProvider »»» Em firebase/index.js
+			return firebase.auth().signInWithPopup(githubProvider).then((result)=>{  //SUCCESS
+				console.log("++++++++++++++++++++++ Auth worked!", result);
+				//ERROR
+			}, (error)=>{
+				console.log("--------------------- Unable to auth", error);
+
+			})
+		}
+	}
+	//............Lec. 143
+	export var startLogout = ()=>{
+		return (dispatch, getState)=>{
+			return firebase.auth().signOut().then(()=>{  //SUCCESS
+				console.log("+++***********++++++++++++ Logged out");
+				
+			})
+
+		}
+	}			
+
 	//............ ACTION GENERATORS Lec. 115
 	//............ 
 	/*//antes Lec. 116

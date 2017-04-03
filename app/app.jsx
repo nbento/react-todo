@@ -3,10 +3,16 @@ var ReactDOM 	= require('react-dom');
 var {Provider} 	= require('react-redux');	//Lec. 121
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
-var TodoApp 	= require('TodoApp');
+//........... Alt. na Lec. 143
+import TodoApp from 'TodoApp'; 	
+//var TodoApp 	= require('TodoApp');
+//........... Lec. 126
+var TodoAPI = require('TodoAPI'); 
 
-var TodoAPI = require('TodoAPI'); //........... Lec. 126
-
+//...... Lec. 142
+//var Login 	= require('Login'); 
+import Login from 'Login';
+var Main 	= require('Main');
 //import './../playground/firebase/index';  //.......... Lec. 127  DESACTIVADA NA LEC. 133
 
 //..........
@@ -57,7 +63,24 @@ ReactDOM.render(
 //..........Lec. 121 Provider
 ReactDOM.render( 
 			<Provider store={store}>
-				<TodoApp/>
+
+				<Router history={hashHistory} >
+					<Route path="/" component={Main}>
+						<Route path="todos" 	component={TodoApp} />
+			  			<IndexRoute component={Login} /> 
+			  		</Route>			
+				</Router>
 			</Provider>,
+
   			document.getElementById('app')
 );
+//..........
+/*
+			<Router history={hashHistory} >
+				<Route path="/" component={Main}>
+					<Route path="about" 	component={About} />
+			  		<Route path="examples" 	component={Examples} />
+			  		<IndexRoute component={Weather} /> 	
+		  		</Route>
+			</Router>,
+*/

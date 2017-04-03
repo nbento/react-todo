@@ -1,9 +1,14 @@
-var React = require('react');
+import React from 'react';
+//var React = require('react');
+//........... Lec. 143
+import * as Redux from 'react-redux';
+
+
 //........... DESACTIVADA NA Lec. 126, 
 //var {connect} = require('react-redux'); //........... DESACTIVADA NA Lec. 126
 //var actions = require('actions'); //........... DESACTIVADA NA Lec. 126
 //MAS
-//NO VIDEO, ESTAS 2 NÃO SÃO DESACTIVADAS
+//NO VIDEO, ESTAS 2 NÃO SÃO DESACTIVADAS, APENAS O SÃO NA LEC. 143
 //var uuid = require('node-uuid');//........... DESACTIVADA NA Lec. 126
 //var moment = require('moment');//........... DESACTIVADA NA Lec. 126
 
@@ -12,10 +17,12 @@ import AddTodo from 'AddTodo';        //Lec. 124 (o export OBRIGA AQUI À UTILIZ
 //var AddTodo = require('AddTodo');
 //var TodoSearch = require('TodoSearch');
 import TodoSearch from 'TodoSearch'; 
+//........... Lec. 143
+import * as actions from 'actions';
 
 //var TodoAPI = require('TodoAPI'); //........... DESACTIVADA NA Lec. 126
 
-var TodoApp = React.createClass(
+export var TodoApp = React.createClass(
 {
   //........... DESACTIVADA NA Lec. 126
   //O STATE É MANTIDO/ACTUALIZADO COM REDUX,
@@ -74,6 +81,11 @@ var TodoApp = React.createClass(
 
     this.setState({todos: todos_});
   },*/
+  onLogout(e){
+    e.preventDefault();
+    var {dispatch} = this.props;
+    dispatch(actions.startLogout());
+  },
   render: function () 
   {
     //........... DESACTIVADA NA Lec. 126
@@ -83,10 +95,21 @@ var TodoApp = React.createClass(
     //ISTO ESTAVA ANTES DE REDUX;
       //<TodoSearch onSearch={this.handleSearch}/>
       //<TodoList todos={filteredTodos}  onToggle={this.handleToggle} />
-      //<AddTodo onAddTodo={this.handleAddTodo}/>  
+      //<AddTodo onAddTodo={this.handleAddTodo}/>
+      //<div className="page-actions">
+      //      
+      //          <a href="#">Logout</a>
+      //      
+      //    </div> 
+       
     return (
       <div>
-        <h1 className="page-title">Todo App</h1>
+            <div className="page-actions">
+              <a href="#" onClick={this.onLogout}>Logout</a> 
+            </div>
+        
+
+        <h1 className="page-title">Todo App !!!</h1>
 
         <div className="row">
           <div className="column small-centered small-11 medium-6 large-5">
@@ -102,7 +125,9 @@ var TodoApp = React.createClass(
   }
 });
 //..............
-module.exports = TodoApp;
+//module.exports = TodoApp;
+export default Redux.connect()(TodoApp);
+//........... 
 //module.exports = connect()(TodoApp);
 /*module.exports = connect(
   (state) => {
