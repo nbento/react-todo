@@ -170,6 +170,7 @@ import firebase, {firebaseRef, githubProvider} from 'app/firebase/index'; //ou s
 			//...... githubProvider »»» Em firebase/index.js
 			return firebase.auth().signInWithPopup(githubProvider).then((result)=>{  //SUCCESS
 				console.log("++++++++++++++++++++++ Auth worked!", result);
+				
 				//ERROR
 			}, (error)=>{
 				console.log("--------------------- Unable to auth", error);

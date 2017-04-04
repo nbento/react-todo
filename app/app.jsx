@@ -1,20 +1,31 @@
 var React 		= require('react');
 var ReactDOM 	= require('react-dom');
 var {Provider} 	= require('react-redux');	//Lec. 121
-var {Route, Router, IndexRoute, hashHistory} = require('react-router');
-
+//var {Route, Router, IndexRoute, hashHistory} = require('react-router'); //...... DESACTIVADA NA LEC. 144
+var {hashHistory} = require('react-router');
 //........... Alt. na Lec. 143
-import TodoApp from 'TodoApp'; 	
+//import TodoApp from 'TodoApp'; 	
 //var TodoApp 	= require('TodoApp');
 //........... Lec. 126
-var TodoAPI = require('TodoAPI'); 
+//var TodoAPI = require('TodoAPI');   //...... DESACTIVADA NA LEC. 144
 
 //...... Lec. 142
-//var Login 	= require('Login'); 
-import Login from 'Login';
-var Main 	= require('Main');
+//import Login from 'Login';   //...... DESACTIVADA NA LEC. 144
+//var Main 	= require('Main'); //...... DESACTIVADA NA LEC. 144
 //import './../playground/firebase/index';  //.......... Lec. 127  DESACTIVADA NA LEC. 133
+console.log('************************** APP.JSX!!!');
+//.......... Lec. 144
+import firebase from 'app/firebase/';	
+import router from 'app/router/'; 		//.......... Lec. 144  ~14.00
 
+firebase.auth().onAuthStateChanged((user)=>{
+	if(user)
+	{
+		hashHistory.push('/todos');
+	}else{
+		hashHistory.push('/');
+	}
+});
 //..........
 	var actions = require('actions');
 	var store = require('configureStore').configure();	
@@ -60,20 +71,57 @@ ReactDOM.render(
   			document.getElementById('app')
 );
 */
-//..........Lec. 121 Provider
+//...... CÓDIGO DA LEC. 144 PASSOU PARA O FILE router/index.jsx
+//.......... Lec. 144
+//'this is react router midleware, allow for async. code...'
+//EM CONJUNTO COM O METHOD 'onEnter', DE UMA 'Route',
+//(neste caso é o Route com component={TodoApp}),
+//verifica se o login foi efectuado, 
+/*var requireLogin = (nextState, replace, next) => {
+	//no login, go back to the root of the app
+	if( !firebase.auth().currentUser)
+	{
+		replace('/');
+	}
+	next();
+}
+//.......... Lec. 144
+//SE ESTÁ LOGGADO, IR DIRECTO PARA OS TODOS
+var redirectIfLoggedIn = (nextState, replace, next) => {
+	//login, go directly to todos
+	if( firebase.auth().currentUser)
+	{
+		replace('/todos');
+	}
+	next();
+}
+*/
+//..........Lec. 121 Provider, ALTERADO NA LEC. 144
+/*
 ReactDOM.render( 
 			<Provider store={store}>
 
 				<Router history={hashHistory} >
 					<Route path="/" component={Main}>
-						<Route path="todos" 	component={TodoApp} />
-			  			<IndexRoute component={Login} /> 
+						<Route path="todos" 	component={TodoApp} onEnter={requireLogin} />
+			  			<IndexRoute component={Login} onEnter={redirectIfLoggedIn}  /> 
 			  		</Route>			
 				</Router>
 			</Provider>,
 
   			document.getElementById('app')
 );
+*/
+//...... Lec. 144, retirado o Router para o file router/index.js
+ReactDOM.render( 
+			<Provider store={store}>
+				{router}
+				
+			</Provider>,
+
+  			document.getElementById('app')
+);
+
 //..........
 /*
 			<Router history={hashHistory} >

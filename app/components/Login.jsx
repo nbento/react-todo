@@ -1,3 +1,4 @@
+//...... UTILIZADA EM APP.JSX, <IndexRoute component={Login} /> 
 //...... Lec. 142
 import React from 'react';
 import * as Redux from 'react-redux';
