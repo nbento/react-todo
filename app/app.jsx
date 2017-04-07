@@ -2,7 +2,7 @@ var React 		= require('react');
 var ReactDOM 	= require('react-dom');
 var {Provider} 	= require('react-redux');	//Lec. 121
 //var {Route, Router, IndexRoute, hashHistory} = require('react-router'); //...... DESACTIVADA NA LEC. 144
-var {hashHistory} = require('react-router');
+var {hashHistory} = require('react-router'); //Route e os outros elementos estão em 'router/index.jsx'
 //........... Alt. na Lec. 143
 //import TodoApp from 'TodoApp'; 	
 //var TodoApp 	= require('TodoApp');
@@ -14,21 +14,29 @@ var {hashHistory} = require('react-router');
 //var Main 	= require('Main'); //...... DESACTIVADA NA LEC. 144
 //import './../playground/firebase/index';  //.......... Lec. 127  DESACTIVADA NA LEC. 133
 console.log('************************** APP.JSX!!!');
+//..........
+var actions = require('actions');
+var store = require('configureStore').configure();	
 //.......... Lec. 144
 import firebase from 'app/firebase/';	
 import router from 'app/router/'; 		//.......... Lec. 144  ~14.00
-
+//...... NO VIDEO, ESTA PARTE FICOU AQUI,
+//...... MAS É CORRECTO ESTAR NO router/index.jsx,
+//...... PORQUE REUNE OS ELEMENTOS DO ROUTER 
+//...... VOLTOU PARA AQUI, PARA TESTES, NA LEC. 145 NÃO FAZ LOGIN NO CHROME ???
 firebase.auth().onAuthStateChanged((user)=>{
 	if(user)
 	{
+		console.log('+++ ***** APP.JSX  .onAuthStateChanged user:::'+user);
+		store.dispatch(actions.login(user.uid));  	//Lec. 145,  ~04.03
 		hashHistory.push('/todos');
 	}else{
+		console.log('--- ***** APP.JSX  .onAuthStateChanged !user:::'+user);
+		store.dispatch(actions.logout());  			//Lec. 145,  ~04.03
 		hashHistory.push('/');
 	}
 });
-//..........
-	var actions = require('actions');
-	var store = require('configureStore').configure();	
+
 
 	//...... DESACTIVADA NA LEC. 137
 	//store.subscribe(()=>
@@ -49,7 +57,8 @@ firebase.auth().onAuthStateChanged((user)=>{
 //var initialTodos = TodoAPI.getTodos();
 //store.dispatch( actions.addTodos(initialTodos) ); 
 
-//......LEC. 137
+//...... LEC. 137
+
 store.dispatch( actions.startAddTodos() );
 
 
@@ -114,12 +123,11 @@ ReactDOM.render(
 */
 //...... Lec. 144, retirado o Router para o file router/index.js
 ReactDOM.render( 
-			<Provider store={store}>
-				{router}
-				
-			</Provider>,
+	<Provider store={store}>
+		{router}
+	</Provider>,
 
-  			document.getElementById('app')
+	document.getElementById('app')
 );
 
 //..........

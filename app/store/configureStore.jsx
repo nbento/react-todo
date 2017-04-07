@@ -11,14 +11,15 @@ import thunk from 'redux-thunk';//Lec. 133, após instalar redux-thunk
 
 //var {nameReducer, hobbiesReducer, moviesReducer, mapReducer} = require('./../reducers/index');
 //var {searchTextReducer, showCompletedReducer, todosReducer} = require('reducers'); //DESACTIVADO NA LEC. 133
-import {searchTextReducer, showCompletedReducer, todosReducer} from 'reducers'; //Lec. 133
+import {searchTextReducer, showCompletedReducer, todosReducer, authReducer} from 'reducers'; //Lec. 133
 //............//	initialState={} »»» Lec. 123 ~03.30 (VER NOTAS NO TOPO)	
 export var configure = (initialState={}) =>
 {
 	var reducer = redux.combineReducers({
 		searchText : 	searchTextReducer,
-		showCompleted : showCompletedReducer,
-		todos : 		todosReducer
+		showCompleted : showCompletedReducer, 
+		todos : 		todosReducer,
+		auth: authReducer 	 					//Lec. 145
 	});
 	////redux.applyMiddleware(thunk),
 	//	initialState »»» Lec. 123 ~03.30 (VER NOTAS NO TOPO)	 

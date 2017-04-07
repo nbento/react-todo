@@ -108,6 +108,25 @@ var moment = require('moment');
 				return state;	
 		}
 	}
+	//............Lec. 145  USERS
+	export var authReducer = (state = {}, action)=> {
+		switch (action.type)
+		{
+ 			//......
+ 			case 'LOGIN':
+				console.log('userReducer LOGIN.................action.uid:::', action.uid);
+				return  {
+							uid: action.uid 
+						}	
+			//......
+			case 'LOGOUT':
+				console.log('userReducer LOGOUT .................');
+				return  {} 					
+			//......		
+			default: 
+				return state;	
+		}
+	}	
 	//............
 /*	
 	//............

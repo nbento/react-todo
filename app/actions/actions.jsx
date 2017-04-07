@@ -165,30 +165,50 @@ import firebase, {firebaseRef, githubProvider} from 'app/firebase/index'; //ou s
 	//............Lec. 143
 	export var startLogin = ()=>{
 		return (dispatch, getState)=>{
-			console.log("++++++++++++++++++++++ Auth worked!");
+			console.log("+++++ ACTIONS  startLogin ++++++++++++++++++++++");
 			//......auth() DEVOLVE VÁRIAS FUNCS. COMO RESULT...
 			//...... githubProvider »»» Em firebase/index.js
+			//...... router/index,jsx: DETECTA ALTERAÇÕES E ACTUALIZA ROUTER
 			return firebase.auth().signInWithPopup(githubProvider).then((result)=>{  //SUCCESS
-				console.log("++++++++++++++++++++++ Auth worked!", result);
-				
+			//return firebase.auth().signInWithRedirect(githubProvider).then((result)=>{  //SUCCESS
+				//
+				//console.log("ACTIONS  startLogin   Auth worked!", result);
+				console.log("+++++ ACTIONS  startLogin USER.UID", result.user.uid);
+
+				//dispatch(actions.login(result.user.uid));  //Lec. 145,  ~04.03
+
 				//ERROR
 			}, (error)=>{
-				console.log("--------------------- Unable to auth", error);
-
+				console.log("-----    -----   ACTIONS  startLogin   Auth ERROR!");
 			})
 		}
 	}
 	//............Lec. 143
+	//...... router/index,jsx: DETECTA ALTERAÇÕES E ACTUALIZA ROUTER
 	export var startLogout = ()=>{
 		return (dispatch, getState)=>{
 			return firebase.auth().signOut().then(()=>{  //SUCCESS
 				console.log("+++***********++++++++++++ Logged out");
 				
+				//dispatch(actions.logout());
 			})
-
 		}
 	}			
-
+	//...... Lec. 145
+	export var login = (uid) =>
+	{
+		return ({
+			type: 'LOGIN',
+			uid
+		})
+	}
+	//...... Lec. 145
+	export var logout = () =>
+	{
+		return ({
+			type: 'LOGOUT'
+		})
+	}
 	//............ ACTION GENERATORS Lec. 115
 	//............ 
 	/*//antes Lec. 116

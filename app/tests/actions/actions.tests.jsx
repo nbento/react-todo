@@ -150,7 +150,26 @@ describe('Actions', ()=>
 		    expect(res).toEqual(action);
 		  });*/ 
 	//..........
+	//.......... Lec. 145
+	it('Should generate login action object  LEC. 145', ()=>{
+		const action = {
+			type: 'LOGIN',
+			uid: '123abc'
+		}
 
+		const res = actions.login(action.uid);
+
+		expect(res).toEqual(action);
+	});
+	//.......... Lec. 145
+	it('Should generate logout action object  LEC. 145', ()=>{
+		const action = {
+			type: 'LOGOUT'
+		}
+		const res = actions.logout();
+
+		expect(res).toEqual(action);
+	});	
 	//..........Lec. 136, alterada na Lec. 138 
 	describe('TESTS WITH FIREBASE TODOS', ()=>{
 		var testTodoRef;
