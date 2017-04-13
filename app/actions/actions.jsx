@@ -35,6 +35,7 @@ import firebase, {firebaseRef, githubProvider} from 'app/firebase/index'; //ou s
 		}
 	}
 	//............Lec. 133 04.55 (RETURN AN FUNCTION, NOT AN OBJECT)
+	//............ Alt. Lec. 146 (nas Alts. de segurança do Firebase)
 	//USADA EM ADDTODO.JSX
 	export var startAddTodo = (text)=>{
 		console.log('STARTADDTODO!!!!!!!!!!!!!!!!!!!');
@@ -46,7 +47,10 @@ import firebase, {firebaseRef, githubProvider} from 'app/firebase/index'; //ou s
 				createdAt: moment().unix(),  	
 				completedAt: null 			//ALT. PARA FIREBASE   //undefined  		
 			}
-			var todoRef = firebaseRef.child('todos').push(todo);
+			//......Alt. Lec. 146
+			//var todoRef = firebaseRef.child('todos').push(todo);
+			var uid = getState().auth.uid;
+			var todoRef = firebaseRef.child(`users/${uid}/todos`).push(todo);
 
 			return todoRef.then(()=>{
 					console.log('THEN OK  todoRef.key:::'+todoRef.key);
@@ -96,9 +100,12 @@ import firebase, {firebaseRef, githubProvider} from 'app/firebase/index'; //ou s
 	//............Lec. 137, FETCH TODOS COMO ESTÁ NO VIDEO
 	export var startAddTodos = ()=>{
 		return (dispatch, getState)=>{
-			var todoRef = firebaseRef.child('todos');
-			
-			return todoRef.once('value').then((snapshot)=>{
+			//......Alt. Lec. 146
+			//var todoRef = firebaseRef.child('todos');
+			var uid = getState().auth.uid;   //...... Criada na Lec. 146
+			var todosRef = firebaseRef.child(`users/${uid}/todos`);
+
+			return todosRef.once('value').then((snapshot)=>{
 				//......
 				var todos = snapshot.val()  ||  {};
 				//OS DADOS DO FIREBASE PARA OS TODOS, ESTÃO NO FORMATO:
@@ -145,10 +152,14 @@ import firebase, {firebaseRef, githubProvider} from 'app/firebase/index'; //ou s
 	export	var startToggleTodo = (id, completed)=>{
 		console.log('TOGGLETODO!!!!!!!!!!!!!!!!!!!');
 		return (dispatch, getState)=>{
-			
 			//var todoRef = firebaseRef.child('todos').child(id).update({'completed':!completed});
 			//var todoRef = firebaseRef.child('todos/'+id).update({'completed':!completed});
-			var todoRef = firebaseRef.child(`todos/${id}`); //.update({'completed':!completed});
+			
+			//......Alt. Lec. 146
+			//var todoRef = firebaseRef.child(`todos/${id}`); //.update({'completed':!completed});
+			var uid = getState().auth.uid;   //...... Criada na Lec. 146
+			var todoRef = firebaseRef.child(`users/${uid}/todos/${id}`);
+			
 			var updates = {
 				completed: completed,
 				completedAt: completed  ?  moment().unix()  :  null

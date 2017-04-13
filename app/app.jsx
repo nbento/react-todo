@@ -29,6 +29,8 @@ firebase.auth().onAuthStateChanged((user)=>{
 	{
 		console.log('+++ ***** APP.JSX  .onAuthStateChanged user:::'+user);
 		store.dispatch(actions.login(user.uid));  	//Lec. 145,  ~04.03
+		store.dispatch( actions.startAddTodos() );  //Lec. 146
+		
 		hashHistory.push('/todos');
 	}else{
 		console.log('--- ***** APP.JSX  .onAuthStateChanged !user:::'+user);
@@ -58,8 +60,9 @@ firebase.auth().onAuthStateChanged((user)=>{
 //store.dispatch( actions.addTodos(initialTodos) ); 
 
 //...... LEC. 137
-
-store.dispatch( actions.startAddTodos() );
+////......Alt. Lec. 146 Como a base de dados tem verificações de segurança,
+//não deve ser accionada aqui...
+//store.dispatch( actions.startAddTodos() );
 
 
 //Load foundation (CARREGA UM FILE CSS DIRECTA/ NUM FILE JSX(!!!))  (Lec.51 ~10:00)
