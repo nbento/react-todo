@@ -63,7 +63,8 @@ describe('Actions', ()=>
 	//..........LEC. 134 COM FIREBASE
 	//foi instalado um module para poder criar este teste, redux-mock-store,
 	//porque o código a testar tem uma componente ASYNC;
-	it('Should create todo and dispatch ADD_TODO', (done)=>{
+	//...... Lec. 147 DESCATIVADA AQUI, PASSOU PARA BAIXO...
+	/*it('Should create todo and dispatch ADD_TODO', (done)=>{
 		const store = createMockStore({});
 		const todoText = 'My todo item';
 
@@ -82,7 +83,7 @@ describe('Actions', ()=>
 		}).catch(done);
 
 	});//...it('Should create todo and dispatc...
-	
+	*/
 	//..........Lec. 126  
 	it('Should generate add todos action object', ()=>
 	{
@@ -170,11 +171,13 @@ describe('Actions', ()=>
 
 		expect(res).toEqual(action);
 	});	
-	//..........Lec. 136, alterada na Lec. 138 
+	//..........Lec. 136, alterada na Lec. 138 e na Lec. 147 (Autenticação)
 	describe('TESTS WITH FIREBASE TODOS', ()=>{
 		var testTodoRef;
-
-		beforeEach((done)=>{
+		var uid; 		//Lec. 147
+		var todosRef; 	//Lec. 147
+		//...... DESACTIVADA/ALTERADA NA Lec. 147
+		/*beforeEach((done)=>{
 			var todosRef = firebaseRef.child('todos');
 			//CADA TESTE INICIA COM A DATABASE EMPTY;
 			todosRef.remove().then(()=>{
@@ -189,14 +192,41 @@ describe('Actions', ()=>
 			.then( () => done() )
 			.catch(done);
 		});
+		*/
+		beforeEach((done)=>{
+			firebase.auth().signInAnonymously().then((user) => {
+				uid = user.uid;
+				todosRef = firebaseRef.child(`users/${uid}/todos`);
 
+				return todosRef.remove();
+			}).then(()=>{
+				testTodoRef = todosRef.push();
+
+				return testTodoRef.set({
+					text: 'Something to do',
+					completed: false,
+					createdAt: 23453453
+				})
+			})
+			.then( () => done() )
+			.catch(done); 
+		});
+
+		//...... LEC. 147 ALTERADA
+		/*
+			afterEach((done)=>{
+				testTodoRef.remove().then(()=> done());
+			})
+		*/
 		afterEach((done)=>{
-			testTodoRef.remove().then(()=> done());
-		})
+			todosRef.remove().then(()=> done());
+		});
 
-		//...... CODIGO COPIADO DO ORIGINAL, LEC. 138...
+		//...... CODIGO COPIADO DO ORIGINAL, LEC. 138... Alt. na Lec. 147
 		it('should toggle todo and dispatch UPDATE_TODO action', (done) => {
-		      const store = createMockStore({});
+		      //const store = createMockStore({});
+		      //...... Alt. na Lec. 147
+		      const store = createMockStore({auth: {uid}});
 		      const action = actions.startToggleTodo(testTodoRef.key, true);
 
 		      store.dispatch(action).then(() => {
@@ -217,7 +247,9 @@ describe('Actions', ()=>
 
 		//...... Lec. 138
 		it('should populate todos and dispatch ADD_TODOS @@@@@@@@@@@@@@@@@@@@@@@@', (done) => {
-			const store = createMockStore({});
+			//const store = createMockStore({});
+		    //...... Alt. na Lec. 147
+		    const store = createMockStore({auth: {uid}});
 			const action = actions.startAddTodos();
 
 			store.dispatch(action).then(()=>{
@@ -231,7 +263,30 @@ describe('Actions', ()=>
 
 			}, done);
 		});
+		//...... 
+		//...... Lec. 147 
+		it('Should create todo and dispatch ADD_TODO', (done)=>{
+			//const store = createMockStore({});
+		    //...... Alt. na Lec. 147
+		    const store = createMockStore({auth: {uid}});
+			const todoText = 'My todo item';
 
+			store.dispatch(actions.startAddTodo(todoText)).then(()=>{
+				const actions = store.getActions();
+				expect(actions[0]).toInclude({
+					type: 'ADD_TODO'
+				});
+
+				expect(actions[0].todo).toInclude({
+					text: todoText
+				});
+
+				done();
+
+			}).catch(done);
+
+		});//...it('Should create todo and dispatc...
+	
 		//...... 
 
 	});	
